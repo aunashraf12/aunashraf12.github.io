@@ -50,6 +50,12 @@
         .theme-transition {
             transition: all 0.3s ease;
         }
+
+        /* Force Dark Mode on Dropdown Options */
+        .dark option {
+            background-color: #1a0505; /* Dark Red/Black */
+            color: white;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-black dark:text-white transition-colors duration-300">
@@ -64,8 +70,30 @@
                         SNOONU
                     </div>
                     <div class="text-white font-bold text-lg">MerchantOS</div>
+                    <div class="ml-4 relative">
+                        <select id="verticalSwitcher" class="
+                            appearance-none cursor-pointer
+                            bg-white text-snoonu-black
+                            dark:bg-black/80 dark:text-white dark:border-red-500/50
+                            border-2 border-transparent
+                            px-4 py-2 pr-8 rounded-xl font-bold text-sm
+                            focus:outline-none focus:ring-2 focus:ring-red-500
+                            transition-all shadow-lg
+                        ">
+                            <option value="restaurant">🍔 Restaurant</option>
+                            <option value="mart">🛒 Grocery/Mart</option>
+                            <option value="laundry">👔 Laundry</option>
+                            <option value="pharmacy">💊 Pharmacy</option>
+                        </select>
+                        <!-- Custom Arrow Icon -->
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <svg class="w-4 h-4 text-snoonu-black dark:text-white dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
                     <div class="bg-snoonu-lightRed text-snoonu-red px-3 py-1 rounded-full text-xs font-bold">
-                        RESTAURANT EDITION
+                        <span id="editionLabel">RESTAURANT EDITION</span>
                     </div>
                 </div>
                 <div class="flex items-center space-4">
@@ -89,6 +117,10 @@
                     </nav>
                 </div>
             </div>
+            <!-- Ticker Message -->
+            <div id="tickerMessage" class="bg-yellow-100 dark:bg-yellow-900/20 border-l-4 border-yellow-500 text-yellow-800 dark:text-yellow-200 px-4 py-2 text-sm font-medium">
+                📢 Hungry customers nearby - surge in burger orders
+            </div>
         </div>
     </header>
 
@@ -108,9 +140,9 @@
                                 <div class="flex items-center space-x-4">
                                     <div class="text-4xl bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-full p-3">🍔</div>
                                     <div>
-                                        <h2 class="text-2xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Burger House</h2>
+                                        <h2 id="merchantName" class="text-2xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Burger House</h2>
                                         <p class="text-snoonu-gray dark:text-snoonu-dark-gray capitalize flex items-center">
-                                            <span class="mr-2">🏪</span>restaurants
+                                            <span id="merchantIcon" class="mr-2 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">🏪</span><span id="merchantCategory">restaurants</span>
                                         </p>
                                     </div>
                                 </div>
@@ -153,10 +185,10 @@
                             </div>
                         </div>
 
-                        <div class="space-y-4">
+                            <div class="space-y-4">
                             <div class="border-2 border-snoonu-lightGray dark:border-snoonu-dark-lightGray rounded-xl p-5 hover:border-snoonu-red dark:hover:border-snoonu-dark-red transition-all duration-200">
-                                <h4 class="font-bold text-snoonu-black dark:text-snoonu-dark-white text-lg mb-2">🚀 Update burger prep time to 25 min during lunch rush</h4>
-                                <p class="text-snoonu-gray dark:text-snoonu-dark-gray mb-3">Our signature burgers need more prep time during peak lunch hours</p>
+                                <h4 id="aiActionTitle" class="font-bold text-snoonu-black dark:text-snoonu-dark-white text-lg mb-2">🚀 Update burger prep time to 25 min during lunch rush</h4>
+                                <p id="aiActionDesc" class="text-snoonu-gray dark:text-snoonu-dark-gray mb-3">Our signature burgers need more prep time during peak lunch hours</p>
                                 <div class="flex items-center space-x-6 text-sm">
                                     <div class="flex items-center text-snoonu-gray dark:text-snoonu-dark-gray">
                                         <span class="mr-2">⏱️</span>
@@ -361,7 +393,7 @@
                             <div class="space-y-4">
                                 <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl p-4 border border-snoonu-red/20 dark:border-snoonu-dark-red/20">
                                     <div class="flex items-center justify-between mb-2">
-                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white">⏱️ Prep Time</label>
+                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white"><span id="timeMetricIcon" class="dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">⏱️</span> <span id="timeMetricLabel">Prep Time</span></label>
                                         <span class="text-snoonu-red dark:text-snoonu-dark-red font-bold" id="prepTimeValue">25 min</span>
                                     </div>
                                     <input type="range" id="prepTimeSlider" min="5" max="45" value="25" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-snoonu-red" oninput="updateSimulation()" />
@@ -373,7 +405,7 @@
 
                                 <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl p-4 border border-snoonu-red/20 dark:border-snoonu-dark-red/20">
                                     <div class="flex items-center justify-between mb-2">
-                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white">📦 Stockout Rate</label>
+                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white"><span id="stockoutMetricIcon" class="dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">📦</span> <span id="stockoutMetricLabel">Stockout Rate</span></label>
                                         <span class="text-snoonu-red dark:text-snoonu-dark-red font-bold" id="stockoutValue">15%</span>
                                     </div>
                                     <input type="range" id="stockoutSlider" min="0" max="40" value="15" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-snoonu-red" oninput="updateSimulation()" />
@@ -385,7 +417,7 @@
 
                                 <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl p-4 border border-snoonu-red/20 dark:border-snoonu-dark-red/20">
                                     <div class="flex items-center justify-between mb-2">
-                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white">💬 Response Time</label>
+                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white"><span id="responseMetricIcon" class="dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">💬</span> <span id="responseMetricLabel">Response Time</span></label>
                                         <span class="text-snoonu-red dark:text-snoonu-dark-red font-bold" id="responseValue">8 min</span>
                                     </div>
                                     <input type="range" id="responseSlider" min="1" max="30" value="8" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-snoonu-red" oninput="updateSimulation()" />
@@ -397,7 +429,7 @@
 
                                 <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl p-4 border border-snoonu-red/20 dark:border-snoonu-dark-red/20">
                                     <div class="flex items-center justify-between mb-2">
-                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white">⭐ Customer Rating</label>
+                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white"><span id="ratingMetricIcon" class="dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">⭐</span> <span id="ratingMetricLabel">Customer Rating</span></label>
                                         <span class="text-snoonu-red dark:text-snoonu-dark-red font-bold" id="ratingValue">3.8/5</span>
                                     </div>
                                     <input type="range" id="ratingSlider" min="1" max="5" step="0.1" value="3.8" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-snoonu-red" oninput="updateSimulation()" />
@@ -537,6 +569,80 @@
         </div>
 
     <script>
+        // Vertical Configuration Engine
+        const verticalConfig = {
+            restaurant: {
+                name: "Burger House",
+                icon: "🍔",
+                category: "restaurants",
+                edition: "RESTAURANT EDITION",
+                timeMetricLabel: "Prep Time",
+                loadMetricLabel: "Kitchen Load",
+                aiAction: "🚀 Update burger prep time to 25 min during lunch rush",
+                aiActionDesc: "Our signature burgers need more prep time during peak lunch hours",
+                tickerMessage: "Hungry customers nearby - surge in burger orders",
+                simulatorMetrics: {
+                    timeMetric: "Prep Time",
+                    stockoutMetric: "Stockout Rate",
+                    responseMetric: "Response Time",
+                    ratingMetric: "Customer Rating"
+                }
+            },
+            mart: {
+                name: "Al Madina Mart",
+                icon: "🛒",
+                category: "grocery stores",
+                edition: "MART EDITION",
+                timeMetricLabel: "Picking Time",
+                loadMetricLabel: "Store Load",
+                aiAction: "📦 Mark 'Al Marai Milk' as Low Stock (predicted run-out in 1 hour)",
+                aiActionDesc: "Critical dairy item running low - reorder needed immediately",
+                tickerMessage: "High demand for 'Dairy' in West Bay - stock up!",
+                simulatorMetrics: {
+                    timeMetric: "Picking Speed",
+                    stockoutMetric: "Stockout Rate",
+                    responseMetric: "Response Time",
+                    ratingMetric: "Customer Rating"
+                }
+            },
+            laundry: {
+                name: "Fresh Clean Laundry",
+                icon: "👔",
+                category: "laundry services",
+                edition: "LAUNDRY EDITION",
+                timeMetricLabel: "Turnaround Time",
+                loadMetricLabel: "Capacity Load",
+                aiAction: "⏰ Extend turnaround time to 48h due to high volume",
+                aiActionDesc: "Surge in dry cleaning orders - adjust customer expectations",
+                tickerMessage: "Surge in Dry Cleaning orders - capacity at 95%",
+                simulatorMetrics: {
+                    timeMetric: "Cleaning Speed",
+                    stockoutMetric: "Capacity Issues",
+                    responseMetric: "Response Time",
+                    ratingMetric: "Customer Rating"
+                }
+            },
+            pharmacy: {
+                name: "HealthCare Pharmacy",
+                icon: "💊",
+                category: "pharmacies",
+                edition: "PHARMACY EDITION",
+                timeMetricLabel: "Verification Time",
+                loadMetricLabel: "Prescription Load",
+                aiAction: "🏥 Fast-track prescription verification for flu medications",
+                aiActionDesc: "Flu season demand spike - prioritize urgent prescriptions",
+                tickerMessage: "Flu season demand spike - stock up on medications",
+                simulatorMetrics: {
+                    timeMetric: "Verification Speed",
+                    stockoutMetric: "Medication Stockout",
+                    responseMetric: "Response Time",
+                    ratingMetric: "Customer Rating"
+                }
+            }
+        };
+
+        let currentVertical = 'restaurant';
+
         // Theme toggle functionality
         const themeToggle = document.getElementById('themeToggle');
         const sunIcon = document.getElementById('sunIcon');
@@ -563,6 +669,51 @@
                 sunIcon.classList.add('hidden');
                 moonIcon.classList.remove('hidden');
             }
+        });
+
+        // Vertical Switcher Functionality
+        const verticalSwitcher = document.getElementById('verticalSwitcher');
+
+        function updateDashboardVertical(vertical) {
+            const config = verticalConfig[vertical];
+            if (!config) return;
+
+            currentVertical = vertical;
+
+            // Update merchant information
+            document.getElementById('merchantName').textContent = config.name;
+            document.getElementById('merchantIcon').textContent = config.icon;
+            document.getElementById('merchantCategory').textContent = config.category;
+            document.getElementById('editionLabel').textContent = config.edition;
+
+            // Update AI action
+            document.getElementById('aiActionTitle').textContent = config.aiAction;
+            document.getElementById('aiActionDesc').textContent = config.aiActionDesc;
+
+            // Update ticker message
+            document.getElementById('tickerMessage').innerHTML = `📢 ${config.tickerMessage}`;
+
+            // Update simulator metrics
+            document.getElementById('timeMetricIcon').textContent = '⏱️';
+            document.getElementById('timeMetricLabel').textContent = config.simulatorMetrics.timeMetric;
+            document.getElementById('stockoutMetricIcon').textContent = '📦';
+            document.getElementById('stockoutMetricLabel').textContent = config.simulatorMetrics.stockoutMetric;
+            document.getElementById('responseMetricIcon').textContent = '💬';
+            document.getElementById('responseMetricLabel').textContent = config.simulatorMetrics.responseMetric;
+            document.getElementById('ratingMetricIcon').textContent = '⭐';
+            document.getElementById('ratingMetricLabel').textContent = config.simulatorMetrics.ratingMetric;
+
+            // Save vertical preference
+            localStorage.setItem('snoonu-vertical', vertical);
+        }
+
+        // Load saved vertical
+        const savedVertical = localStorage.getItem('snoonu-vertical') || 'restaurant';
+        verticalSwitcher.value = savedVertical;
+        updateDashboardVertical(savedVertical);
+
+        verticalSwitcher.addEventListener('change', (e) => {
+            updateDashboardVertical(e.target.value);
         });
 
         // Tab switching
