@@ -215,21 +215,9 @@
                             </div>
                         </div>
 
-                        <div class="border-2 rounded-xl p-5 mb-6 bg-snoonu-lightRed dark:bg-white/5 border-snoonu-red/20 dark:border-white/10">
-                            <div class="flex items-center justify-between mb-4">
-                                <h4 class="font-bold text-snoonu-black dark:text-snoonu-dark-white text-lg">Bronze Tier Benefits</h4>
-                                <span class="px-3 py-1 rounded-full text-xs font-bold bg-snoonu-red text-white">Current Tier</span>
-                            </div>
-                            <ul class="space-y-2">
-                                <li class="text-snoonu-gray dark:text-gray-400 flex items-center">
-                                    <span class="text-snoonu-red dark:text-snoonu-dark-red mr-3 text-lg">✓</span>
-                                    <span>Standard commission rates</span>
-                                </li>
-                                <li class="text-snoonu-gray dark:text-gray-400 flex items-center">
-                                    <span class="text-snoonu-red dark:text-snoonu-dark-red mr-3 text-lg">✓</span>
-                                    <span>Basic support</span>
-                                </li>
-                            </ul>
+                        <!-- Tier Progress Section -->
+                        <div id="tierProgressSection">
+                            <!-- Progress Header and Bar will be inserted here by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -487,10 +475,17 @@
                         </div>
                     </div>
 
-                    <!-- AI Recommended Plans -->
-                    <div class="mt-8">
-                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white mb-6">🎯 AI-Recommended Plans</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Generate Strategy Button -->
+                    <div class="mt-8 text-center">
+                        <button onclick="generateStrategies()" id="generateBtn" class="bg-gradient-to-r from-snoonu-red to-red-600 dark:from-snoonu-dark-red dark:to-red-700 hover:from-red-600 hover:to-red-700 dark:hover:from-red-700 dark:hover:to-red-800 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 animate-pulse">
+                            🤖 Generate Execution Strategy
+                        </button>
+                    </div>
+
+                    <!-- AI Recommended Plans (Initially Hidden) -->
+                    <div id="plansContainer" class="mt-8 hidden">
+                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white mb-6">🎯 AI-Generated Execution Strategies</h3>
+                        <div id="plansGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border-2 border-green-200 dark:border-green-700 hover:border-green-400 dark:hover:border-green-500 transition-colors cursor-pointer plan-card" data-plan="profit" onclick="selectPlan('profit')">
                                 <div class="text-center mb-4">
                                     <div class="text-3xl mb-2">💰</div>
@@ -560,7 +555,7 @@
 
                         <div class="mt-6 flex justify-center">
                             <button onclick="applySelectedPlan()" id="applyPlanBtn" class="bg-snoonu-red dark:bg-snoonu-dark-red hover:bg-snoonu-darkRed dark:hover:bg-snoonu-dark-darkRed text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                                🚀 Apply Selected Plan
+                                🚀 Apply Selected Strategy
                             </button>
                         </div>
                     </div>
@@ -569,6 +564,42 @@
         </div>
 
     <script>
+        // Tier Data Structure
+        const tierData = {
+            bronze: {
+                name: "Bronze",
+                minScore: 0,
+                maxScore: 60,
+                color: "bronze",
+                benefits: ["Standard Commission", "Basic Support"],
+                badge: "🥉"
+            },
+            silver: {
+                name: "Silver",
+                minScore: 60,
+                maxScore: 80,
+                color: "silver",
+                benefits: ["Priority Support", "2x Monthly Ad Credits", "Silver Badge"],
+                badge: "🥈"
+            },
+            gold: {
+                name: "Gold",
+                minScore: 80,
+                maxScore: 95,
+                color: "gold",
+                benefits: ["Lower Commission (-2%)", "Dedicated Account Manager", "Gold Badge"],
+                badge: "🥇"
+            },
+            platinum: {
+                name: "Platinum",
+                minScore: 95,
+                maxScore: 100,
+                color: "platinum",
+                benefits: ["0% Commission on Pickups", "VIP Support Line", "Platinum Badge"],
+                badge: "💎"
+            }
+        };
+
         // Vertical Configuration Engine
         const verticalConfig = {
             restaurant: {
@@ -586,7 +617,34 @@
                     stockoutMetric: "Stockout Rate",
                     responseMetric: "Response Time",
                     ratingMetric: "Customer Rating"
-                }
+                },
+                metrics: {
+                    availability: { value: "75%", trend: "up", subtext: "" },
+                    reliability: { value: "65%", trend: "down", subtext: "" },
+                    conversion: { value: "22%", trend: "down", subtext: "(-2% vs last week)", subtextColor: "red" },
+                    prep_delay: { label: "Prep Delay", value: "+4m", trend: "up", subtext: "(Avg. late per order)" },
+                    sentiment: { value: "4.2★", trend: "up", subtext: "(Top 10% in area)", subtextColor: "green" }
+                },
+                tasks: [
+                    {
+                        title: "Update prep time to 25 min (Lunch Rush detected)",
+                        points: 8,
+                        type: "urgent",
+                        icon: "⏱️"
+                    },
+                    {
+                        title: "Accept 'Scheduled Order #482' for tomorrow",
+                        points: 2,
+                        type: "quick",
+                        icon: "📅"
+                    },
+                    {
+                        title: "Upload photo for 'Spicy Burger' (Missing image)",
+                        points: 5,
+                        type: "quick",
+                        icon: "📸"
+                    }
+                ]
             },
             mart: {
                 name: "Al Madina Mart",
@@ -603,7 +661,34 @@
                     stockoutMetric: "Stockout Rate",
                     responseMetric: "Response Time",
                     ratingMetric: "Customer Rating"
-                }
+                },
+                metrics: {
+                    availability: { value: "82%", trend: "up", subtext: "" },
+                    reliability: { value: "78%", trend: "up", subtext: "" },
+                    conversion: { value: "28%", trend: "up", subtext: "(+3% vs last week)", subtextColor: "green" },
+                    prep_delay: { label: "Pick Rate", value: "12/min", trend: "up", subtext: "(Items per minute)" },
+                    sentiment: { value: "4.5★", trend: "up", subtext: "(Top 5% in area)", subtextColor: "green" }
+                },
+                tasks: [
+                    {
+                        title: "Mark 'Al Marai Milk' Low Stock (Predicted run-out: 1h)",
+                        points: 8,
+                        type: "urgent",
+                        icon: "🥛"
+                    },
+                    {
+                        title: "Verify expiry dates for Batch #902 (Dairy)",
+                        points: 5,
+                        type: "routine",
+                        icon: "📅"
+                    },
+                    {
+                        title: "Approve substitute for 'Organic Eggs' (Out of Stock)",
+                        points: 3,
+                        type: "quick",
+                        icon: "🥚"
+                    }
+                ]
             },
             laundry: {
                 name: "Fresh Clean Laundry",
@@ -620,7 +705,28 @@
                     stockoutMetric: "Capacity Issues",
                     responseMetric: "Response Time",
                     ratingMetric: "Customer Rating"
-                }
+                },
+                metrics: {
+                    availability: { value: "91%", trend: "up", subtext: "" },
+                    reliability: { value: "85%", trend: "up", subtext: "" },
+                    conversion: { value: "35%", trend: "up", subtext: "(+5% vs last week)", subtextColor: "green" },
+                    prep_delay: { label: "Turnaround", value: "Avg 24h", trend: "down", subtext: "(Delivery time)" },
+                    sentiment: { value: "4.6★", trend: "up", subtext: "(Top 3% in area)", subtextColor: "green" }
+                },
+                tasks: [
+                    {
+                        title: "Extend turnaround time to 48h (High Volume)",
+                        points: 10,
+                        type: "urgent",
+                        icon: "⏰"
+                    },
+                    {
+                        title: "Confirm pickup for 'Premium Suit Service'",
+                        points: 4,
+                        type: "quick",
+                        icon: "👔"
+                    }
+                ]
             },
             pharmacy: {
                 name: "HealthCare Pharmacy",
@@ -637,11 +743,144 @@
                     stockoutMetric: "Medication Stockout",
                     responseMetric: "Response Time",
                     ratingMetric: "Customer Rating"
-                }
+                },
+                metrics: {
+                    availability: { value: "95%", trend: "up", subtext: "" },
+                    reliability: { value: "92%", trend: "up", subtext: "" },
+                    conversion: { value: "42%", trend: "up", subtext: "(+8% vs last week)", subtextColor: "green" },
+                    prep_delay: { label: "Wait Time", value: "Avg 8m", trend: "down", subtext: "(Customer wait time)" },
+                    sentiment: { value: "4.8★", trend: "up", subtext: "(Top 1% in area)", subtextColor: "green" }
+                },
+                tasks: [
+                    {
+                        title: "Verify Prescription #882 (Pending > 10m)",
+                        points: 15,
+                        type: "urgent",
+                        icon: "🏥"
+                    },
+                    {
+                        title: "Restock 'Panadol Advance' (High Demand)",
+                        points: 5,
+                        type: "routine",
+                        icon: "💊"
+                    }
+                ]
             }
         };
 
         let currentVertical = 'restaurant';
+
+        // Tier Progress Ladder Rendering
+        function renderTierProgress() {
+            const currentScore = 58; // This should ideally come from the actual score
+            let currentTier = null;
+            let nextTier = null;
+            let progressToNext = 0;
+
+            // Determine current tier and next tier
+            for (const [tierKey, tier] of Object.entries(tierData)) {
+                if (currentScore >= tier.minScore && currentScore < tier.maxScore) {
+                    currentTier = { ...tier, key: tierKey };
+                    // Find next tier
+                    const tierKeys = Object.keys(tierData);
+                    const currentIndex = tierKeys.indexOf(tierKey);
+                    if (currentIndex < tierKeys.length - 1) {
+                        nextTier = { ...tierData[tierKeys[currentIndex + 1]], key: tierKeys[currentIndex + 1] };
+                        const progressRange = nextTier.minScore - tier.minScore;
+                        const progressMade = currentScore - tier.minScore;
+                        progressToNext = Math.min(100, (progressMade / progressRange) * 100);
+                    }
+                    break;
+                }
+            }
+
+            // Generate HTML
+            let html = '';
+
+            // Progress Header
+            if (nextTier) {
+                const pointsNeeded = nextTier.minScore - currentScore;
+                html += `
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-snoonu-gray dark:text-gray-400">Next Tier: ${nextTier.name}</span>
+                            <span class="text-sm font-bold text-snoonu-red dark:text-red-400">${pointsNeeded} points away</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div class="bg-snoonu-red dark:bg-red-500 h-2 rounded-full transition-all duration-300" style="width: ${progressToNext}%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-snoonu-gray dark:text-gray-400 mt-1">
+                            <span>${currentTier.name} (${currentTier.minScore})</span>
+                            <span>${nextTier.name} (${nextTier.minScore})</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Tier Ladder
+            html += '<div class="space-y-3">';
+
+            for (const [tierKey, tier] of Object.entries(tierData)) {
+                const isCurrentTier = currentTier && tierKey === currentTier.key;
+                const isLocked = !isCurrentTier && (!currentTier || tier.minScore > currentScore);
+
+                let tierClasses = 'border-2 rounded-xl p-4 transition-all duration-300 ';
+                let tierContentClasses = '';
+
+                if (isCurrentTier) {
+                    // Current tier - highlighted and glowing
+                    tierClasses += 'border-snoonu-red dark:border-red-500 bg-snoonu-lightRed/50 dark:bg-red-900/20 dark:shadow-[0_0_10px_rgba(220,38,38,0.3)]';
+                    tierContentClasses = 'opacity-100';
+                } else if (isLocked) {
+                    // Locked tier - dimmed
+                    tierClasses += 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50 opacity-60 dark:opacity-40';
+                    tierContentClasses = 'opacity-75';
+                } else {
+                    // Unlocked higher tier
+                    tierClasses += 'border-green-300 dark:border-green-600 bg-green-50 dark:bg-green-900/20';
+                    tierContentClasses = 'opacity-100';
+                }
+
+                html += `
+                    <div class="${tierClasses}">
+                        <div class="flex items-center justify-between mb-3 ${tierContentClasses}">
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-3">${tier.badge}</span>
+                                <div>
+                                    <h4 class="font-bold text-snoonu-black dark:text-snoonu-dark-white">${tier.name} Tier</h4>
+                                    <span class="text-xs text-snoonu-gray dark:text-gray-400">${tier.minScore}-${tier.maxScore} points</span>
+                                </div>
+                            </div>
+                            ${isCurrentTier ? '<span class="px-2 py-1 bg-snoonu-red text-white text-xs font-bold rounded-full">CURRENT</span>' : ''}
+                            ${isLocked ? '<span class="text-gray-400 dark:text-gray-500">🔒</span>' : ''}
+                        </div>
+                        <ul class="space-y-1 ${tierContentClasses}">
+                            ${tier.benefits.map(benefit =>
+                                `<li class="text-sm flex items-center ${isCurrentTier ? 'text-snoonu-gray dark:text-gray-400' : 'text-snoonu-gray dark:text-gray-500'}">
+                                    <span class="mr-2 ${isCurrentTier ? 'text-green-600 dark:text-green-400' : 'text-gray-400'}">${isCurrentTier ? '✓' : '○'}</span>
+                                    ${benefit}
+                                </li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+                `;
+
+                // Add teaser for next tier (Silver)
+                if (tierKey === 'silver' && isLocked && currentTier && currentTier.key === 'bronze') {
+                    html += `
+                        <div class="bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-700/50 rounded-lg p-3 mt-2">
+                            <p class="text-sm text-yellow-800 dark:text-yellow-200 font-medium">
+                                🎯 Unlock Priority Support & Ad Credits by reaching 60 points!
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+
+            html += '</div>';
+
+            document.getElementById('tierProgressSection').innerHTML = html;
+        }
 
         // Theme toggle functionality
         const themeToggle = document.getElementById('themeToggle');
@@ -692,6 +931,9 @@
 
             // Update ticker message
             document.getElementById('tickerMessage').innerHTML = `📢 ${config.tickerMessage}`;
+
+            // Update tier progress (in case tiers differ by vertical in future)
+            renderTierProgress();
 
             // Update simulator metrics
             document.getElementById('timeMetricIcon').textContent = '⏱️';
@@ -812,6 +1054,10 @@
 
             document.getElementById('tierChange').textContent = tier;
             document.getElementById('tierBenefits').textContent = benefits;
+
+            // Add pulsing effect to generate button to indicate new strategies are available
+            const generateBtn = document.getElementById('generateBtn');
+            generateBtn.classList.add('animate-pulse');
         }
 
         function selectPlan(planType) {
@@ -860,37 +1106,110 @@
         function applySelectedPlan() {
             if (!selectedPlan) return;
 
-            // Generate AI-recommended actions based on plan
-            let actions = [];
+            // Get current slider values
+            const prepTime = parseInt(document.getElementById('prepTimeSlider').value);
+            const stockoutRate = parseInt(document.getElementById('stockoutSlider').value);
+            const rating = parseFloat(document.getElementById('ratingSlider').value);
+
+            // Get strategy name
+            let strategyName = '';
             switch(selectedPlan) {
-                case 'profit':
-                    actions = [
-                        '⭐ Improve customer service (high rating impact)',
-                        '📦 Reduce stockouts by 50%',
-                        '⏱️ Optimize prep times for popular items'
-                    ];
+                case 'aggressive':
+                    strategyName = 'Aggressive Rollout';
                     break;
-                case 'score':
-                    actions = [
-                        '⭐ Achieve 4.8+ rating through quality focus',
-                        '📦 Eliminate stockout cancellations',
-                        '⏱️ Set reliable prep times for all orders',
-                        '💬 Implement instant response system'
-                    ];
+                case 'optimization':
+                    strategyName = 'Process Optimization';
                     break;
-                case 'balanced':
-                    actions = [
-                        '⭐ Boost rating to 4.2+ with consistent service',
-                        '📦 Reduce stockouts by 60%',
-                        '⏱️ Balance prep time with reliability',
-                        '💬 Improve response times moderately'
-                    ];
+                case 'tech':
+                    strategyName = 'Tech-First Approach';
                     break;
             }
 
-            alert(`🚀 ${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} Plan Applied!\n\nAI-Recommended Actions:\n${actions.map(action => `• ${action}`).join('\n')}\n\nExpected Results:\n• Score improvement in 3-7 days\n• Revenue impact within 1 week\n• New tier benefits unlocked automatically`);
+            alert(`🎯 Strategy Locked: Targeting ${prepTime}min prep time, ${stockoutRate}% stockout, ${rating.toFixed(1)} rating via ${strategyName}.\n\nTasks added to Dashboard:\n• Implementation timeline: 1-2 weeks\n• Expected score improvement: +8-15 points\n• Budget impact: Calculated based on strategy\n• Success metrics: Monitored automatically`);
 
             closeSimulator();
+        }
+
+        // Strategy Generation
+        function generateStrategies() {
+            // Get current slider values
+            const prepTime = parseInt(document.getElementById('prepTimeSlider').value);
+            const stockoutRate = parseInt(document.getElementById('stockoutSlider').value);
+            const rating = parseFloat(document.getElementById('ratingSlider').value);
+
+            // Generate dynamic strategies based on current values
+            const strategies = [
+                {
+                    id: 'aggressive',
+                    name: 'Aggressive Rollout',
+                    icon: '⚡',
+                    description: `Achieve ${stockoutRate - 2}% stockout in 1 week by hiring 1 extra packer`,
+                    gradient: 'from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20',
+                    border: 'border-red-200 dark:border-red-700',
+                    hoverBorder: 'hover:border-red-400 dark:hover:border-red-500',
+                    textColor: 'text-red-800 dark:text-red-300',
+                    subTextColor: 'text-red-600 dark:text-red-400'
+                },
+                {
+                    id: 'optimization',
+                    name: 'Process Optimization',
+                    icon: '🔧',
+                    description: `Reach ${rating.toFixed(1)} rating by retraining staff on packing SOPs`,
+                    gradient: 'from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20',
+                    border: 'border-blue-200 dark:border-blue-700',
+                    hoverBorder: 'hover:border-blue-400 dark:hover:border-blue-500',
+                    textColor: 'text-blue-800 dark:text-blue-300',
+                    subTextColor: 'text-blue-600 dark:text-blue-400'
+                },
+                {
+                    id: 'tech',
+                    name: 'Tech-First Approach',
+                    icon: '🤖',
+                    description: `Reduce prep time to ${prepTime}m using auto-accept rules`,
+                    gradient: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20',
+                    border: 'border-green-200 dark:border-green-700',
+                    hoverBorder: 'hover:border-green-400 dark:hover:border-green-500',
+                    textColor: 'text-green-800 dark:text-green-300',
+                    subTextColor: 'text-green-600 dark:text-green-400'
+                }
+            ];
+
+            // Generate HTML for strategy cards
+            const plansGrid = document.getElementById('plansGrid');
+            plansGrid.innerHTML = '';
+
+            strategies.forEach(strategy => {
+                const cardHTML = `
+                    <div class="bg-gradient-to-br ${strategy.gradient} rounded-xl p-6 border-2 ${strategy.border} ${strategy.hoverBorder} transition-colors cursor-pointer plan-card" data-plan="${strategy.id}" onclick="selectPlan('${strategy.id}')">
+                        <div class="text-center mb-4">
+                            <div class="text-3xl mb-2">${strategy.icon}</div>
+                            <h4 class="font-bold ${strategy.textColor}">${strategy.name}</h4>
+                            <p class="${strategy.subTextColor} text-sm">${strategy.description}</p>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="${strategy.subTextColor}">Target Prep Time:</span>
+                                <span class="font-bold ${strategy.textColor}">${prepTime} min</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="${strategy.subTextColor}">Target Stockout:</span>
+                                <span class="font-bold ${strategy.textColor}">${stockoutRate}%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="${strategy.subTextColor}">Target Rating:</span>
+                                <span class="font-bold ${strategy.textColor}">${rating.toFixed(1)}/5</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                plansGrid.innerHTML += cardHTML;
+            });
+
+            // Show the plans container
+            document.getElementById('plansContainer').classList.remove('hidden');
+
+            // Stop pulsing animation on generate button
+            document.getElementById('generateBtn').classList.remove('animate-pulse');
         }
 
         // Campaign generation
@@ -901,6 +1220,7 @@
         // Set initial active tab
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.tab-btn').click();
+            renderTierProgress(); // Initialize tier progress ladder
         });
     </script>
 </body>
