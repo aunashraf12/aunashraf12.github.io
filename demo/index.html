@@ -162,15 +162,8 @@
                                 </button>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="p-3 rounded-lg bg-snoonu-lightRed dark:bg-white/5 dark:border dark:border-white/10">
-                                    <div class="text-snoonu-gray dark:text-gray-400 text-sm">Availability</div>
-                                    <div class="text-snoonu-black dark:text-snoonu-dark-white font-bold">75%</div>
-                                </div>
-                                <div class="p-3 rounded-lg bg-snoonu-lightRed dark:bg-white/5 dark:border dark:border-white/10">
-                                    <div class="text-snoonu-gray dark:text-gray-400 text-sm">Reliability</div>
-                                    <div class="text-snoonu-black dark:text-snoonu-dark-white font-bold">65%</div>
-                                </div>
+                            <div id="metricsContainer" class="grid grid-cols-2 lg:grid-cols-5 gap-3 mt-6">
+                                <!-- Metrics will be dynamically rendered here -->
                             </div>
                         </div>
                     </div>
@@ -226,35 +219,58 @@
 
         <!-- Feedback Tab -->
         <div id="feedback" class="tab-content">
+            <!-- AI Sentiment Dashboard -->
+            <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 theme-transition mb-6">
+                <div class="flex items-center mb-6">
+                    <div class="text-2xl mr-3">📊</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">AI Sentiment Analysis</h3>
+                        <p class="text-snoonu-gray dark:text-gray-400 text-sm">Real-time customer voice intelligence</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Net Sentiment Score -->
+                    <div class="text-center">
+                        <div class="text-4xl font-black text-snoonu-black dark:text-white mb-2" id="sentimentScore">4.2</div>
+                        <div class="text-sm text-snoonu-gray dark:text-gray-400">Net Sentiment Score</div>
+                        <div class="flex items-center justify-center mt-1">
+                            <span class="text-yellow-500 text-lg">★★★★★</span>
+                        </div>
+                    </div>
+
+                    <!-- Trend Indicator -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center mb-2">
+                            <span id="trendArrow" class="text-2xl mr-2">↘</span>
+                            <span id="trendValue" class="text-xl font-bold text-red-500">0.3 pts</span>
+                        </div>
+                        <div class="text-sm text-snoonu-gray dark:text-gray-400">vs yesterday</div>
+                    </div>
+
+                    <!-- AI Insight -->
+                    <div class="md:col-span-1">
+                        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
+                            <div class="text-sm font-bold text-blue-900 dark:text-blue-200 mb-1">🤖 AI Insight</div>
+                            <div class="text-sm text-blue-800 dark:text-blue-300" id="aiInsight">⚠️ 3 recent complaints detected regarding 'Packaging' - suggested check on thermal bags.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Customer Voice Feed -->
             <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 theme-transition">
                 <div class="flex items-center mb-6">
                     <div class="text-2xl mr-3">💬</div>
                     <div>
-                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Customer Feedback</h3>
-                        <p class="text-snoonu-gray dark:text-gray-400 text-sm">Recent reviews converted to actionable tasks</p>
+                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Live Customer Voice Feed</h3>
+                        <p class="text-snoonu-gray dark:text-gray-400 text-sm">Real-time reviews with actionable insights</p>
                     </div>
                 </div>
 
-                <div class="space-y-4">
-                    <div class="border-2 border-snoonu-lightGray dark:border-snoonu-dark-lightGray rounded-xl p-4">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center space-x-2">
-                                <span class="text-lg">🔴</span>
-                                <h4 class="font-bold text-snoonu-black dark:text-snoonu-dark-white capitalize">Late Issues (3)</h4>
-                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">late</span>
-                            </div>
-                            <button class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-4 py-2 rounded-lg font-bold text-sm shadow hover:shadow-md transition-all duration-200">
-                                Create Task
-                            </button>
-                        </div>
-                        <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-lg p-3 mb-3">
-                            <p class="text-snoonu-black dark:text-snoonu-dark-white text-sm">Order was 45 minutes late, food arrived cold ⭐⭐</p>
-                        </div>
-                        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3">
-                            <h5 class="font-bold text-blue-900 dark:text-blue-200 text-sm mb-1">Suggested Task:</h5>
-                            <p class="text-blue-800 dark:text-blue-300 text-sm">🚨 Speed up order preparation - Multiple customers complaining about late deliveries</p>
-                        </div>
-                    </div>
+                <!-- Actionable Clusters Container -->
+                <div id="feedbackContainer">
+                    <!-- Reviews will be dynamically rendered here -->
                 </div>
             </div>
         </div>
@@ -600,6 +616,75 @@
             }
         };
 
+        // Customer Feedback Data Engine
+        const feedbackData = {
+            restaurant: {
+                sentiment: {
+                    score: 4.2,
+                    trend: "down",
+                    trendValue: 0.3,
+                    insight: "⚠️ 3 recent complaints detected regarding 'Packaging' - suggested check on thermal bags."
+                },
+                reviews: [
+                    { name: "Ahmed K.", rating: 5, comment: "Amazing burgers! Fresh and juicy, definitely coming back!", tag: "Quality", time: "2h ago", sentiment: "positive" },
+                    { name: "Fatima R.", rating: 1, comment: "Food arrived cold and fries were soggy. Terrible experience.", tag: "Packaging", time: "4h ago", sentiment: "negative" },
+                    { name: "Mohammed S.", rating: 4, comment: "Good food but delivery took 45 minutes. Please improve speed.", tag: "Late", time: "6h ago", sentiment: "neutral" },
+                    { name: "Sara A.", rating: 5, comment: "Best burger in the area! Staff was friendly too.", tag: "Service", time: "8h ago", sentiment: "positive" },
+                    { name: "Omar B.", rating: 2, comment: "Burger was okay but missing the special sauce I ordered.", tag: "Missing Item", time: "12h ago", sentiment: "negative" },
+                    { name: "Layla M.", rating: 5, comment: "Perfect! Exactly what I ordered, hot and fresh.", tag: "Quality", time: "1d ago", sentiment: "positive" },
+                    { name: "Khalid H.", rating: 3, comment: "Food was good but packaging leaked all over my car.", tag: "Packaging", time: "1d ago", sentiment: "negative" }
+                ]
+            },
+            mart: {
+                sentiment: {
+                    score: 4.5,
+                    trend: "up",
+                    trendValue: 0.2,
+                    insight: "📈 Customer satisfaction improving - 'Fresh Produce' category driving positive reviews."
+                },
+                reviews: [
+                    { name: "Nadia L.", rating: 5, comment: "Fresh fruits and vegetables! Love the quality here.", tag: "Quality", time: "1h ago", sentiment: "positive" },
+                    { name: "Ibrahim T.", rating: 1, comment: "Milk carton leaked in the bag, made a mess everywhere.", tag: "Packaging", time: "3h ago", sentiment: "negative" },
+                    { name: "Aisha R.", rating: 4, comment: "Good selection but couldn't find the brand I wanted.", tag: "Missing Item", time: "5h ago", sentiment: "neutral" },
+                    { name: "Youssef M.", rating: 5, comment: "Always fresh dairy products. Very reliable!", tag: "Quality", time: "7h ago", sentiment: "positive" },
+                    { name: "Huda S.", rating: 2, comment: "Eggs arrived broken. Need better packaging.", tag: "Packaging", time: "10h ago", sentiment: "negative" },
+                    { name: "Zahra K.", rating: 5, comment: "Excellent customer service and fresh produce.", tag: "Service", time: "1d ago", sentiment: "positive" }
+                ]
+            },
+            laundry: {
+                sentiment: {
+                    score: 4.6,
+                    trend: "stable",
+                    trendValue: 0,
+                    insight: "✨ Strong performance in 'Premium Service' - consider expanding dry cleaning capacity."
+                },
+                reviews: [
+                    { name: "Mariam A.", rating: 5, comment: "Perfect pressing! My suit looks brand new.", tag: "Quality", time: "30m ago", sentiment: "positive" },
+                    { name: "Hassan N.", rating: 2, comment: "Button missing from my shirt after pickup.", tag: "Damage", time: "2h ago", sentiment: "negative" },
+                    { name: "Lina W.", rating: 5, comment: "Always reliable and clothes come back smelling great!", tag: "Service", time: "4h ago", sentiment: "positive" },
+                    { name: "Omar Z.", rating: 4, comment: "Good service but took longer than expected.", tag: "Late", time: "6h ago", sentiment: "neutral" },
+                    { name: "Reem B.", rating: 1, comment: "Stain not removed from my favorite blouse. Very disappointed.", tag: "Quality", time: "8h ago", sentiment: "negative" },
+                    { name: "Salem K.", rating: 5, comment: "Exceptional dry cleaning service. Highly recommend!", tag: "Quality", time: "1d ago", sentiment: "positive" }
+                ]
+            },
+            pharmacy: {
+                sentiment: {
+                    score: 4.8,
+                    trend: "up",
+                    trendValue: 0.1,
+                    insight: "💊 Excellent prescription accuracy - 'Fast Service' driving customer loyalty."
+                },
+                reviews: [
+                    { name: "Noor F.", rating: 5, comment: "Always accurate prescriptions and friendly staff!", tag: "Service", time: "1h ago", sentiment: "positive" },
+                    { name: "Abdullah R.", rating: 5, comment: "Quick service during flu season. Much appreciated!", tag: "Speed", time: "2h ago", sentiment: "positive" },
+                    { name: "Maya S.", rating: 4, comment: "Good selection but had to wait 15 minutes.", tag: "Wait Time", time: "4h ago", sentiment: "neutral" },
+                    { name: "Tariq M.", rating: 5, comment: "Professional service and all medications ready on time.", tag: "Quality", time: "6h ago", sentiment: "positive" },
+                    { name: "Dana H.", rating: 3, comment: "Couldn't find the cough syrup I needed.", tag: "Missing Item", time: "8h ago", sentiment: "negative" },
+                    { name: "Faisal A.", rating: 5, comment: "Best pharmacy in the area. Always helpful staff.", tag: "Service", time: "1d ago", sentiment: "positive" }
+                ]
+            }
+        };
+
         // Vertical Configuration Engine
         const verticalConfig = {
             restaurant: {
@@ -618,13 +703,13 @@
                     responseMetric: "Response Time",
                     ratingMetric: "Customer Rating"
                 },
-                metrics: {
-                    availability: { value: "75%", trend: "up", subtext: "" },
-                    reliability: { value: "65%", trend: "down", subtext: "" },
-                    conversion: { value: "22%", trend: "down", subtext: "(-2% vs last week)", subtextColor: "red" },
-                    prep_delay: { label: "Prep Delay", value: "+4m", trend: "up", subtext: "(Avg. late per order)" },
-                    sentiment: { value: "4.2★", trend: "up", subtext: "(Top 10% in area)", subtextColor: "green" }
-                },
+                metrics: [
+                    { label: "Availability", value: "75%", trend: "stable", color: "gray" },
+                    { label: "Reliability", value: "65%", trend: "down", color: "red" },
+                    { label: "Conversion", value: "22%", trend: "down", subtext: "-2%", color: "red" },
+                    { label: "Prep Delay", value: "+4m", trend: "up", subtext: "Late", color: "red" },
+                    { label: "Sentiment", value: "4.2★", trend: "up", subtext: "Top 10%", color: "green" }
+                ],
                 tasks: [
                     {
                         title: "Update prep time to 25 min (Lunch Rush detected)",
@@ -662,13 +747,13 @@
                     responseMetric: "Response Time",
                     ratingMetric: "Customer Rating"
                 },
-                metrics: {
-                    availability: { value: "82%", trend: "up", subtext: "" },
-                    reliability: { value: "78%", trend: "up", subtext: "" },
-                    conversion: { value: "28%", trend: "up", subtext: "(+3% vs last week)", subtextColor: "green" },
-                    prep_delay: { label: "Pick Rate", value: "12/min", trend: "up", subtext: "(Items per minute)" },
-                    sentiment: { value: "4.5★", trend: "up", subtext: "(Top 5% in area)", subtextColor: "green" }
-                },
+                metrics: [
+                    { label: "Availability", value: "82%", trend: "up", color: "green" },
+                    { label: "Reliability", value: "78%", trend: "up", color: "green" },
+                    { label: "Conversion", value: "28%", trend: "up", subtext: "+3%", color: "green" },
+                    { label: "Pick Rate", value: "12/min", trend: "up", subtext: "Items/min", color: "green" },
+                    { label: "Sentiment", value: "4.5★", trend: "up", subtext: "Top 5%", color: "green" }
+                ],
                 tasks: [
                     {
                         title: "Mark 'Al Marai Milk' Low Stock (Predicted run-out: 1h)",
@@ -706,13 +791,13 @@
                     responseMetric: "Response Time",
                     ratingMetric: "Customer Rating"
                 },
-                metrics: {
-                    availability: { value: "91%", trend: "up", subtext: "" },
-                    reliability: { value: "85%", trend: "up", subtext: "" },
-                    conversion: { value: "35%", trend: "up", subtext: "(+5% vs last week)", subtextColor: "green" },
-                    prep_delay: { label: "Turnaround", value: "Avg 24h", trend: "down", subtext: "(Delivery time)" },
-                    sentiment: { value: "4.6★", trend: "up", subtext: "(Top 3% in area)", subtextColor: "green" }
-                },
+                metrics: [
+                    { label: "Availability", value: "91%", trend: "up", color: "green" },
+                    { label: "Reliability", value: "85%", trend: "up", color: "green" },
+                    { label: "Conversion", value: "35%", trend: "up", subtext: "+5%", color: "green" },
+                    { label: "Turnaround", value: "24h", trend: "down", subtext: "Avg", color: "red" },
+                    { label: "Sentiment", value: "4.6★", trend: "up", subtext: "Top 3%", color: "green" }
+                ],
                 tasks: [
                     {
                         title: "Extend turnaround time to 48h (High Volume)",
@@ -744,13 +829,13 @@
                     responseMetric: "Response Time",
                     ratingMetric: "Customer Rating"
                 },
-                metrics: {
-                    availability: { value: "95%", trend: "up", subtext: "" },
-                    reliability: { value: "92%", trend: "up", subtext: "" },
-                    conversion: { value: "42%", trend: "up", subtext: "(+8% vs last week)", subtextColor: "green" },
-                    prep_delay: { label: "Wait Time", value: "Avg 8m", trend: "down", subtext: "(Customer wait time)" },
-                    sentiment: { value: "4.8★", trend: "up", subtext: "(Top 1% in area)", subtextColor: "green" }
-                },
+                metrics: [
+                    { label: "Availability", value: "95%", trend: "up", color: "green" },
+                    { label: "Reliability", value: "92%", trend: "up", color: "green" },
+                    { label: "Conversion", value: "42%", trend: "up", subtext: "+8%", color: "green" },
+                    { label: "Wait Time", value: "8m", trend: "down", subtext: "Avg", color: "red" },
+                    { label: "Sentiment", value: "4.8★", trend: "up", subtext: "Top 1%", color: "green" }
+                ],
                 tasks: [
                     {
                         title: "Verify Prescription #882 (Pending > 10m)",
@@ -925,6 +1010,9 @@
             document.getElementById('merchantCategory').textContent = config.category;
             document.getElementById('editionLabel').textContent = config.edition;
 
+            // Update metrics
+            renderMetrics(currentVertical);
+
             // Update AI action
             document.getElementById('aiActionTitle').textContent = config.aiAction;
             document.getElementById('aiActionDesc').textContent = config.aiActionDesc;
@@ -934,6 +1022,9 @@
 
             // Update tier progress (in case tiers differ by vertical in future)
             renderTierProgress();
+
+            // Update feedback tab content
+            updateFeedbackTab(currentVertical);
 
             // Update simulator metrics
             document.getElementById('timeMetricIcon').textContent = '⏱️';
@@ -1217,10 +1308,170 @@
             alert('🎉 Campaign generated!\n\n"🚀 Lunch Rush Special: 20% Off Your Favorites!"\n\nExpected impact: +25% orders during lunch hours\n+15% revenue increase');
         }
 
+        // Render Sentiment Dashboard
+        function renderSentimentDashboard(vertical) {
+            const sentiment = feedbackData[vertical].sentiment;
+
+            document.getElementById('sentimentScore').textContent = sentiment.score;
+            document.getElementById('trendArrow').textContent = sentiment.trend === 'up' ? '↗' : sentiment.trend === 'down' ? '↘' : '→';
+            document.getElementById('trendValue').textContent = sentiment.trendValue === 0 ? 'Stable' : `${sentiment.trendValue} pts`;
+            document.getElementById('trendValue').className = `text-xl font-bold ${sentiment.trend === 'up' ? 'text-green-500' : sentiment.trend === 'down' ? 'text-red-500' : 'text-gray-500'}`;
+            document.getElementById('aiInsight').textContent = sentiment.insight;
+        }
+
+        // Render Feedback Reviews
+        function renderFeedbackReviews(vertical) {
+            const reviews = feedbackData[vertical].reviews;
+            const container = document.getElementById('feedbackContainer');
+
+            // Analyze reviews for actionable insights
+            const tagCounts = {};
+            reviews.forEach(review => {
+                tagCounts[review.tag] = (tagCounts[review.tag] || 0) + 1;
+            });
+
+            // Find the most problematic tag
+            const topIssueTag = Object.keys(tagCounts).reduce((a, b) => tagCounts[a] > tagCounts[b] ? a : b);
+
+            // Generate suggested task based on top issue
+            let suggestedTask = '';
+            let taskIcon = '🚨';
+            switch(topIssueTag) {
+                case 'Packaging':
+                    suggestedTask = 'Improve packaging quality - multiple customers reporting damaged/leaked items';
+                    taskIcon = '📦';
+                    break;
+                case 'Late':
+                    suggestedTask = 'Speed up delivery times - customers complaining about delays';
+                    taskIcon = '⏱️';
+                    break;
+                case 'Missing Item':
+                    suggestedTask = 'Double-check orders before dispatch - items missing from deliveries';
+                    taskIcon = '🔍';
+                    break;
+                case 'Quality':
+                    suggestedTask = 'Review product quality standards - mixed feedback on food quality';
+                    taskIcon = '⭐';
+                    break;
+                case 'Service':
+                    suggestedTask = 'Staff training on customer service - improve interaction quality';
+                    taskIcon = '👥';
+                    break;
+                default:
+                    suggestedTask = 'Monitor customer feedback trends and address top concerns';
+                    taskIcon = '📊';
+            }
+
+            // Group reviews by sentiment
+            const positiveReviews = reviews.filter(r => r.sentiment === 'positive').slice(0, 3);
+            const negativeReviews = reviews.filter(r => r.sentiment === 'negative').slice(0, 3);
+
+            let html = '';
+
+            // Attention Needed Section
+            if (negativeReviews.length > 0) {
+                html += `
+                    <div class="mb-6">
+                        <h4 class="text-lg font-bold text-red-600 dark:text-red-400 mb-3 flex items-center">
+                            <span class="mr-2">🚨</span> Attention Needed (${negativeReviews.length})
+                        </h4>
+                        <div class="space-y-3 max-h-[300px] overflow-y-auto">
+                            ${negativeReviews.map(review => `
+                                <div class="border-2 border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/10 rounded-lg p-4">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="font-bold text-snoonu-black dark:text-white">${review.name}</span>
+                                            <span class="text-yellow-500">${'⭐'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
+                                            <span class="px-2 py-1 bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200 text-xs rounded-full">${review.tag}</span>
+                                        </div>
+                                        <span class="text-xs text-snoonu-gray dark:text-gray-400">${review.time}</span>
+                                    </div>
+                                    <p class="text-sm text-snoonu-black dark:text-gray-300">${review.comment}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- Suggested Task -->
+                        <div class="mt-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
+                            <h5 class="font-bold text-blue-900 dark:text-blue-200 text-sm mb-2 flex items-center">
+                                <span class="mr-2">${taskIcon}</span> AI-Suggested Action
+                            </h5>
+                            <p class="text-blue-800 dark:text-blue-300 text-sm mb-3">${suggestedTask}</p>
+                            <button class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-4 py-2 rounded-lg font-bold text-sm shadow hover:shadow-md transition-all duration-200">
+                                Create Task
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Recent Praise Section
+            if (positiveReviews.length > 0) {
+                html += `
+                    <div class="mb-6">
+                        <h4 class="text-lg font-bold text-green-600 dark:text-green-400 mb-3 flex items-center">
+                            <span class="mr-2">💚</span> Recent Praise (${positiveReviews.length})
+                        </h4>
+                        <div class="space-y-3 max-h-[200px] overflow-y-auto">
+                            ${positiveReviews.map(review => `
+                                <div class="border-2 border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/10 rounded-lg p-4">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="font-bold text-snoonu-black dark:text-white">${review.name}</span>
+                                            <span class="text-yellow-500">${'⭐'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
+                                            <span class="px-2 py-1 bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200 text-xs rounded-full">${review.tag}</span>
+                                        </div>
+                                        <span class="text-xs text-snoonu-gray dark:text-gray-400">${review.time}</span>
+                                    </div>
+                                    <p class="text-sm text-snoonu-black dark:text-gray-300">${review.comment}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Render Dynamic Metrics
+        function renderMetrics(verticalKey) {
+            const metrics = verticalConfig[verticalKey].metrics;
+            const container = document.getElementById('metricsContainer');
+
+            container.innerHTML = '';
+
+            metrics.forEach(metric => {
+                const trendIcon = metric.trend === 'up' ? '↗' : metric.trend === 'down' ? '↘' : '→';
+                const trendColor = metric.trend === 'up' ? 'text-green-500' : metric.trend === 'down' ? 'text-red-500' : 'text-gray-400';
+                const subtextColor = metric.color === 'green' ? 'text-green-600 dark:text-green-400' : metric.color === 'red' ? 'text-red-600 dark:text-red-400' : 'text-gray-600 dark:text-gray-400';
+
+                const html = `
+                    <div class="p-3 rounded-xl border border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 backdrop-blur-sm shadow-sm transition-all hover:scale-105">
+                        <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1 flex justify-between">
+                            ${metric.label}
+                            <span class="${trendColor}">${trendIcon}</span>
+                        </div>
+                        <div class="text-lg font-black text-gray-800 dark:text-white">${metric.value}</div>
+                        ${metric.subtext ? `<div class="text-[10px] font-bold ${subtextColor}">${metric.subtext}</div>` : ''}
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        // Update Feedback Tab
+        function updateFeedbackTab(vertical) {
+            renderSentimentDashboard(vertical);
+            renderFeedbackReviews(vertical);
+        }
+
         // Set initial active tab
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.tab-btn').click();
             renderTierProgress(); // Initialize tier progress ladder
+            renderMetrics('restaurant'); // Initialize metrics
+            updateFeedbackTab('restaurant'); // Initialize feedback tab
         });
     </script>
 </body>
