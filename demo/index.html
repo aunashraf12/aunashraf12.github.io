@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snoonu MerchantOS - Hackathon Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        snoonu: {
+                            red: '#E53E3E',
+                            darkRed: '#C53030',
+                            lightRed: '#FED7D7',
+                            black: '#1A202C',
+                            darkGray: '#2D3748',
+                            gray: '#4A5568',
+                            lightGray: '#E2E8F0',
+                            white: '#FFFFFF',
+                            'dark-red': '#FF6B6B',
+                            'dark-darkRed': '#FF5252',
+                            'dark-lightRed': '#2D1810',
+                            'dark-black': '#0F0F0F',
+                            'dark-darkGray': '#1A1A1A',
+                            'dark-gray': '#2A2A2A',
+                            'dark-lightGray': '#404040',
+                            'dark-white': '#F5F5F5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+        .animate-pulse-slow {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .theme-transition {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-black dark:text-white transition-colors duration-300">
+    <!-- Dark Mode Background Wrapper -->
+    <div class="min-h-screen dark:bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] dark:from-[#4a0404] dark:via-[#1a0505] dark:to-black">
+        <!-- Header -->
+    <header class="bg-snoonu-red text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-white text-snoonu-red px-4 py-2 rounded-xl font-black text-xl">
+                        SNOONU
+                    </div>
+                    <div class="text-white font-bold text-lg">MerchantOS</div>
+                    <div class="bg-snoonu-lightRed text-snoonu-red px-3 py-1 rounded-full text-xs font-bold">
+                        RESTAURANT EDITION
+                    </div>
+                </div>
+                <div class="flex items-center space-4">
+                    <button id="themeToggle" class="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 transition-all flex items-center justify-center">
+                        <span id="sunIcon">☀️</span>
+                        <span id="moonIcon" class="hidden">🌙</span>
+                    </button>
+                    <nav class="flex space-x-2 ml-4">
+                        <button onclick="showTab('dashboard')" class="tab-btn px-4 py-3 rounded-xl text-sm font-bold transition-all bg-white text-snoonu-red">
+                            🏠 Dashboard
+                        </button>
+                        <button onclick="showTab('feedback')" class="tab-btn px-4 py-3 rounded-xl text-sm font-bold transition-all text-white hover:bg-white/20">
+                            💬 Feedback
+                        </button>
+                        <button onclick="showTab('campaign')" class="tab-btn px-4 py-3 rounded-xl text-sm font-bold transition-all text-white hover:bg-white/20">
+                            🎯 Campaign
+                        </button>
+                        <button onclick="showTab('calculator')" class="tab-btn px-4 py-3 rounded-xl text-sm font-bold transition-all text-white hover:bg-white/20">
+                            💰 Calculator
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Score Card -->
+                    <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 relative overflow-hidden theme-transition">
+                        <div class="absolute inset-0 bg-restaurant-pattern opacity-50"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="flex items-center space-x-4">
+                                    <div class="text-4xl bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-full p-3">🍔</div>
+                                    <div>
+                                        <h2 class="text-2xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Burger House</h2>
+                                        <p class="text-snoonu-gray dark:text-snoonu-dark-gray capitalize flex items-center">
+                                            <span class="mr-2">🏪</span>restaurants
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="px-4 py-2 rounded-full text-white text-sm font-semibold bg-snoonu-red">
+                                    Bronze Tier
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-6">
+                                <div class="text-6xl font-black text-snoonu-black dark:text-snoonu-dark-white mb-2">58</div>
+                                <div class="text-snoonu-gray dark:text-snoonu-dark-gray font-medium">Merchant Score</div>
+                            </div>
+
+                            <div class="text-center mb-6">
+                                <button onclick="openSimulator()" class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                                    🎯 What If I Improve?
+                                </button>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-3 rounded-lg bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed">
+                                    <div class="text-snoonu-gray dark:text-snoonu-dark-gray text-sm">Availability</div>
+                                    <div class="text-snoonu-black dark:text-snoonu-dark-white font-bold">75%</div>
+                                </div>
+                                <div class="p-3 rounded-lg bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed">
+                                    <div class="text-snoonu-gray dark:text-snoonu-dark-gray text-sm">Reliability</div>
+                                    <div class="text-snoonu-black dark:text-snoonu-dark-white font-bold">65%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 theme-transition">
+                        <div class="flex items-center mb-6">
+                            <div class="text-2xl mr-3">🚀</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Autopilot Actions</h3>
+                                <p class="text-snoonu-gray dark:text-snoonu-dark-gray text-sm">One-click fixes to boost your score</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="border-2 border-snoonu-lightGray dark:border-snoonu-dark-lightGray rounded-xl p-5 hover:border-snoonu-red dark:hover:border-snoonu-dark-red transition-all duration-200">
+                                <h4 class="font-bold text-snoonu-black dark:text-snoonu-dark-white text-lg mb-2">🚀 Update burger prep time to 25 min during lunch rush</h4>
+                                <p class="text-snoonu-gray dark:text-snoonu-dark-gray mb-3">Our signature burgers need more prep time during peak lunch hours</p>
+                                <div class="flex items-center space-x-6 text-sm">
+                                    <div class="flex items-center text-snoonu-gray dark:text-snoonu-dark-gray">
+                                        <span class="mr-2">⏱️</span>
+                                        <span class="font-medium">3 min</span>
+                                    </div>
+                                    <div class="flex items-center text-snoonu-red dark:text-snoonu-dark-red font-semibold">
+                                        <span class="mr-2">🎯</span>
+                                        <span>+8 points</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div>
+                    <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 theme-transition">
+                        <div class="flex items-center mb-6">
+                            <div class="text-2xl mr-3">🎁</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Your Rewards</h3>
+                                <p class="text-snoonu-gray dark:text-snoonu-dark-gray text-sm">Earn more with better performance</p>
+                            </div>
+                        </div>
+
+                        <div class="border-2 rounded-xl p-5 mb-6 bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed border-snoonu-red/20 dark:border-snoonu-dark-red/20">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-bold text-snoonu-black dark:text-snoonu-dark-white text-lg">Bronze Tier Benefits</h4>
+                                <span class="px-3 py-1 rounded-full text-xs font-bold bg-snoonu-red text-white">Current Tier</span>
+                            </div>
+                            <ul class="space-y-2">
+                                <li class="text-snoonu-gray dark:text-snoonu-dark-gray flex items-center">
+                                    <span class="text-snoonu-red dark:text-snoonu-dark-red mr-3 text-lg">✓</span>
+                                    <span>Standard commission rates</span>
+                                </li>
+                                <li class="text-snoonu-gray dark:text-snoonu-dark-gray flex items-center">
+                                    <span class="text-snoonu-red dark:text-snoonu-dark-red mr-3 text-lg">✓</span>
+                                    <span>Basic support</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Tab -->
+        <div id="feedback" class="tab-content">
+            <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 theme-transition">
+                <div class="flex items-center mb-6">
+                    <div class="text-2xl mr-3">💬</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Customer Feedback</h3>
+                        <p class="text-snoonu-gray dark:text-snoonu-dark-gray text-sm">Recent reviews converted to actionable tasks</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="border-2 border-snoonu-lightGray dark:border-snoonu-dark-lightGray rounded-xl p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-lg">🔴</span>
+                                <h4 class="font-bold text-snoonu-black dark:text-snoonu-dark-white capitalize">Late Issues (3)</h4>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">late</span>
+                            </div>
+                            <button class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-4 py-2 rounded-lg font-bold text-sm shadow hover:shadow-md transition-all duration-200">
+                                Create Task
+                            </button>
+                        </div>
+                        <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-lg p-3 mb-3">
+                            <p class="text-snoonu-black dark:text-snoonu-dark-white text-sm">Order was 45 minutes late, food arrived cold ⭐⭐</p>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3">
+                            <h5 class="font-bold text-blue-900 dark:text-blue-200 text-sm mb-1">Suggested Task:</h5>
+                            <p class="text-blue-800 dark:text-blue-300 text-sm">🚨 Speed up order preparation - Multiple customers complaining about late deliveries</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaign Tab -->
+        <div id="campaign" class="tab-content">
+            <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 theme-transition">
+                <div class="flex items-center mb-6">
+                    <div class="text-2xl mr-3">🎯</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Campaign Builder</h3>
+                        <p class="text-snoonu-gray dark:text-snoonu-dark-gray text-sm">AI-powered campaign creation in one click</p>
+                    </div>
+                </div>
+
+                <div class="text-center py-8">
+                    <div class="bg-gradient-to-r from-snoonu-red to-red-600 dark:from-snoonu-dark-red dark:to-red-700 text-white rounded-xl p-8 mb-6">
+                        <div class="text-4xl mb-4">🤖</div>
+                        <h4 class="text-xl font-bold mb-2">Smart Campaign Generation</h4>
+                        <p class="text-red-100">Our AI analyzes your sales data and creates the perfect promotional campaign automatically.</p>
+                    </div>
+
+                    <button onclick="generateCampaign()" class="bg-snoonu-red dark:bg-snoonu-dark-red hover:bg-snoonu-darkRed dark:hover:bg-snoonu-dark-darkRed text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-lg">
+                        ✨ Create Smart Campaign
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Tab -->
+        <div id="calculator" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 theme-transition">
+                    <h3 class="text-lg font-semibold text-snoonu-black dark:text-snoonu-dark-white mb-4">💰 Profit Calculator</h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-snoonu-black dark:text-snoonu-dark-white mb-1">Item Price ($)</label>
+                            <input type="number" value="25" class="w-full px-3 py-2 border border-snoonu-lightGray dark:border-snoonu-dark-lightGray rounded-md bg-white text-gray-900 dark:bg-black/50 dark:text-white" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-snoonu-black dark:text-snoonu-dark-white mb-1">Discount (%)</label>
+                            <input type="number" value="20" class="w-full px-3 py-2 border border-snoonu-lightGray dark:border-snoonu-dark-lightGray rounded-md bg-white text-gray-900 dark:bg-black/50 dark:text-white" />
+                        </div>
+                        <button class="w-full bg-snoonu-red dark:bg-snoonu-dark-red text-white py-2 px-4 rounded-md font-medium hover:bg-snoonu-darkRed dark:hover:bg-snoonu-dark-darkRed transition-colors duration-200">
+                            Calculate Profit Impact
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 theme-transition">
+                    <div class="flex items-center mb-6">
+                        <div class="text-2xl mr-3">📊</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Profit Analysis Results</h3>
+                            <p class="text-snoonu-gray dark:text-snoonu-dark-gray text-sm">Smart pricing recommendations</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="text-center p-6 bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl">
+                            <div class="text-3xl font-black text-snoonu-red dark:text-snoonu-dark-red">$20.00</div>
+                            <div class="text-snoonu-gray dark:text-snoonu-dark-gray font-medium">Profit Before</div>
+                        </div>
+                        <div class="text-center p-6 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                            <div class="text-3xl font-black text-green-600 dark:text-green-400">$16.00</div>
+                            <div class="text-snoonu-gray dark:text-snoonu-dark-gray font-medium">Profit After</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl p-4 border border-snoonu-red/20 dark:border-snoonu-dark-red/20">
+                        <div class="text-lg font-bold text-snoonu-black dark:text-snoonu-dark-white mb-2">💡 Smart Recommendation</div>
+                        <div class="text-snoonu-red dark:text-snoonu-dark-red font-bold text-xl">📈 Volume-Maximizing Strategy</div>
+                        <div class="text-snoonu-gray dark:text-snoonu-dark-gray text-sm mt-1">Drive more sales volume - quantity drives profits</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    </div>
+
+        <!-- ScoreLab Simulator Modal -->
+        <div id="simulatorModal" class="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 hidden flex items-center justify-center z-50 p-4">
+            <div class="bg-white dark:bg-snoonu-dark-darkGray rounded-xl shadow-2xl max-w-6xl w-full max-h-[95vh] overflow-hidden theme-transition">
+                <div class="bg-snoonu-red dark:bg-snoonu-dark-red text-white p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-2xl">🧪</div>
+                            <div>
+                                <h2 class="text-xl font-bold">ScoreLab Simulator</h2>
+                                <p class="text-red-100 text-sm">AI-powered decision cockpit - Measure → Plan → Predict → Act</p>
+                            </div>
+                        </div>
+                        <button onclick="closeSimulator()" class="text-white hover:bg-red-700 dark:hover:bg-red-800 rounded-full p-2 transition-colors">✕</button>
+                    </div>
+                </div>
+
+                <div class="p-6 overflow-y-auto max-h-[calc(95vh-200px)]">
+                    <!-- AI Coach Section -->
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 mb-8 border border-blue-200 dark:border-blue-700">
+                        <div class="flex items-center mb-4">
+                            <div class="text-2xl mr-3">🤖</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-blue-900 dark:text-blue-200">AI Coach Analysis</h3>
+                                <p class="text-blue-700 dark:text-blue-300 text-sm">Why your score is 58 and what to fix</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-white dark:bg-blue-900/30 rounded-lg p-4 border-l-4 border-red-500">
+                                <div class="font-semibold text-red-800 dark:text-red-300">Stockout Issues (-12 points)</div>
+                                <div class="text-red-700 dark:text-red-400 text-sm mt-1">High "item unavailable" cancellations hurting reliability</div>
+                            </div>
+                            <div class="bg-white dark:bg-blue-900/30 rounded-lg p-4 border-l-4 border-orange-500">
+                                <div class="font-semibold text-orange-800 dark:text-orange-300">Response Speed (-8 points)</div>
+                                <div class="text-orange-700 dark:text-orange-400 text-sm mt-1">"Vendor not reachable" complaints increasing</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Levers Section -->
+                        <div>
+                            <h3 class="text-lg font-bold text-snoonu-black dark:text-snoonu-dark-white mb-4">🎛️ Business Levers</h3>
+                            <div class="space-y-4">
+                                <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl p-4 border border-snoonu-red/20 dark:border-snoonu-dark-red/20">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white">⏱️ Prep Time</label>
+                                        <span class="text-snoonu-red dark:text-snoonu-dark-red font-bold" id="prepTimeValue">25 min</span>
+                                    </div>
+                                    <input type="range" id="prepTimeSlider" min="5" max="45" value="25" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-snoonu-red" oninput="updateSimulation()" />
+                                    <div class="flex justify-between text-xs text-snoonu-gray dark:text-snoonu-dark-gray mt-1">
+                                        <span>5 min (Fast)</span>
+                                        <span>45 min (Reliable)</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl p-4 border border-snoonu-red/20 dark:border-snoonu-dark-red/20">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white">📦 Stockout Rate</label>
+                                        <span class="text-snoonu-red dark:text-snoonu-dark-red font-bold" id="stockoutValue">15%</span>
+                                    </div>
+                                    <input type="range" id="stockoutSlider" min="0" max="40" value="15" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-snoonu-red" oninput="updateSimulation()" />
+                                    <div class="flex justify-between text-xs text-snoonu-gray dark:text-snoonu-dark-gray mt-1">
+                                        <span>0% (Perfect)</span>
+                                        <span>40% (Problematic)</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl p-4 border border-snoonu-red/20 dark:border-snoonu-dark-red/20">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white">💬 Response Time</label>
+                                        <span class="text-snoonu-red dark:text-snoonu-dark-red font-bold" id="responseValue">8 min</span>
+                                    </div>
+                                    <input type="range" id="responseSlider" min="1" max="30" value="8" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-snoonu-red" oninput="updateSimulation()" />
+                                    <div class="flex justify-between text-xs text-snoonu-gray dark:text-snoonu-dark-gray mt-1">
+                                        <span>1 min (Instant)</span>
+                                        <span>30 min (Slow)</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-xl p-4 border border-snoonu-red/20 dark:border-snoonu-dark-red/20">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="font-medium text-snoonu-black dark:text-snoonu-dark-white">⭐ Customer Rating</label>
+                                        <span class="text-snoonu-red dark:text-snoonu-dark-red font-bold" id="ratingValue">3.8/5</span>
+                                    </div>
+                                    <input type="range" id="ratingSlider" min="1" max="5" step="0.1" value="3.8" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-snoonu-red" oninput="updateSimulation()" />
+                                    <div class="flex justify-between text-xs text-snoonu-gray dark:text-snoonu-dark-gray mt-1">
+                                        <span>1.0 (Poor)</span>
+                                        <span>5.0 (Excellent)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div>
+                            <h3 class="text-lg font-bold text-snoonu-black dark:text-snoonu-dark-white mb-4">📊 Predicted Outcomes</h3>
+                            <div class="space-y-4">
+                                <div class="bg-gradient-to-r from-snoonu-red to-red-600 dark:from-snoonu-dark-red dark:to-red-700 text-white rounded-xl p-6">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="text-3xl font-black" id="predictedScore">72</div>
+                                            <div class="text-red-100 dark:text-red-200">Merchant Score</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-2xl font-bold text-green-300" id="scoreChange">+14 points</div>
+                                            <div class="text-red-200 dark:text-red-300 text-sm">vs current 58</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gradient-to-r from-green-500 to-green-600 dark:from-green-600 dark:to-green-700 text-white rounded-xl p-6">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="text-3xl font-black" id="salesGrowth">+18%</div>
+                                            <div class="text-green-100 dark:text-green-200">Sales Growth</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-2xl font-bold text-green-200" id="profitIncrease">+$240/day</div>
+                                            <div class="text-green-200 dark:text-green-300 text-sm">est. profit</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gradient-to-r from-purple-500 to-purple-600 dark:from-purple-600 dark:to-purple-700 text-white rounded-xl p-6">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="text-3xl font-black" id="tierChange">Silver</div>
+                                            <div class="text-purple-100 dark:text-purple-200">New Tier</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-2xl font-bold text-yellow-300" id="tierBenefits">+Ad Credits</div>
+                                            <div class="text-purple-200 dark:text-purple-300 text-sm">unlocked</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Recommended Plans -->
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white mb-6">🎯 AI-Recommended Plans</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border-2 border-green-200 dark:border-green-700 hover:border-green-400 dark:hover:border-green-500 transition-colors cursor-pointer plan-card" data-plan="profit" onclick="selectPlan('profit')">
+                                <div class="text-center mb-4">
+                                    <div class="text-3xl mb-2">💰</div>
+                                    <h4 class="font-bold text-green-800 dark:text-green-300">Max Profit</h4>
+                                    <p class="text-green-600 dark:text-green-400 text-sm">Optimize for money</p>
+                                </div>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-green-700 dark:text-green-400">Score:</span>
+                                        <span class="font-bold text-green-800 dark:text-green-300">68 (+10)</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-green-700 dark:text-green-400">Profit:</span>
+                                        <span class="font-bold text-green-800 dark:text-green-300">+$180/day</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-green-700 dark:text-green-400">Effort:</span>
+                                        <span class="font-bold text-green-800 dark:text-green-300">2 hours</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-700 hover:border-blue-400 dark:hover:border-blue-500 transition-colors cursor-pointer plan-card" data-plan="score" onclick="selectPlan('score')">
+                                <div class="text-center mb-4">
+                                    <div class="text-3xl mb-2">⭐</div>
+                                    <h4 class="font-bold text-blue-800 dark:text-blue-300">Max Score</h4>
+                                    <p class="text-blue-600 dark:text-blue-400 text-sm">Optimize for ranking</p>
+                                </div>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-blue-700 dark:text-blue-400">Score:</span>
+                                        <span class="font-bold text-blue-800 dark:text-blue-300">78 (+20)</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-blue-700 dark:text-blue-400">Profit:</span>
+                                        <span class="font-bold text-blue-800 dark:text-blue-300">+$120/day</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-blue-700 dark:text-blue-400">Effort:</span>
+                                        <span class="font-bold text-blue-800 dark:text-blue-300">4 hours</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-6 border-2 border-purple-200 dark:border-purple-700 hover:border-purple-400 dark:hover:border-purple-500 transition-colors cursor-pointer plan-card" data-plan="balanced" onclick="selectPlan('balanced')">
+                                <div class="text-center mb-4">
+                                    <div class="text-3xl mb-2">⚖️</div>
+                                    <h4 class="font-bold text-purple-800 dark:text-purple-300">Balanced</h4>
+                                    <p class="text-purple-600 dark:text-purple-400 text-sm">Best of both worlds</p>
+                                </div>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-purple-700 dark:text-purple-400">Score:</span>
+                                        <span class="font-bold text-purple-800 dark:text-purple-300">72 (+14)</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-purple-700 dark:text-purple-400">Profit:</span>
+                                        <span class="font-bold text-purple-800 dark:text-purple-300">+$160/day</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-purple-700 dark:text-purple-400">Effort:</span>
+                                        <span class="font-bold text-purple-800 dark:text-purple-300">3 hours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex justify-center">
+                            <button onclick="applySelectedPlan()" id="applyPlanBtn" class="bg-snoonu-red dark:bg-snoonu-dark-red hover:bg-snoonu-darkRed dark:hover:bg-snoonu-dark-darkRed text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                🚀 Apply Selected Plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const html = document.documentElement;
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('snoonu-theme') || 'light';
+        if (savedTheme === 'dark') {
+            html.classList.add('dark');
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('snoonu-theme', 'light');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('snoonu-theme', 'dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        });
+
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-snoonu-red');
+                btn.classList.add('text-white', 'hover:bg-white/20');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Highlight selected button
+            event.target.classList.remove('text-white', 'hover:bg-white/20');
+            event.target.classList.add('bg-white', 'text-snoonu-red');
+        }
+
+        // Simulator modal
+        // ScoreLab Simulator Modal
+        let selectedPlan = null;
+
+        function openSimulator() {
+            document.getElementById('simulatorModal').classList.remove('hidden');
+            document.getElementById('simulatorModal').classList.add('flex');
+            updateSimulation(); // Initialize with current values
+        }
+
+        function closeSimulator() {
+            document.getElementById('simulatorModal').classList.add('hidden');
+            document.getElementById('simulatorModal').classList.remove('flex');
+            selectedPlan = null;
+            document.getElementById('applyPlanBtn').disabled = true;
+            // Reset plan selection visual
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.remove('ring-4', 'ring-snoonu-red', 'dark:ring-snoonu-dark-red');
+            });
+        }
+
+        function updateSimulation() {
+            // Get current slider values
+            const prepTime = parseInt(document.getElementById('prepTimeSlider').value);
+            const stockoutRate = parseInt(document.getElementById('stockoutSlider').value);
+            const responseTime = parseInt(document.getElementById('responseSlider').value);
+            const rating = parseFloat(document.getElementById('ratingSlider').value);
+
+            // Update display values
+            document.getElementById('prepTimeValue').textContent = `${prepTime} min`;
+            document.getElementById('stockoutValue').textContent = `${stockoutRate}%`;
+            document.getElementById('responseValue').textContent = `${responseTime} min`;
+            document.getElementById('ratingValue').textContent = `${rating.toFixed(1)}/5`;
+
+            // Calculate new score (simplified model)
+            const currentScore = 58;
+            let scoreChange = 0;
+
+            // Prep time impact (higher prep time = better reliability = higher score)
+            if (prepTime > 25) scoreChange += Math.min(8, (prepTime - 25) * 0.4);
+            else if (prepTime < 15) scoreChange -= (15 - prepTime) * 0.5;
+
+            // Stockout impact (lower stockouts = higher score)
+            scoreChange += (15 - stockoutRate) * 0.8;
+
+            // Response time impact (faster response = higher score)
+            if (responseTime < 5) scoreChange += (5 - responseTime) * 0.6;
+            else if (responseTime > 10) scoreChange -= (responseTime - 10) * 0.4;
+
+            // Rating impact
+            scoreChange += (rating - 3.8) * 3;
+
+            const newScore = Math.max(0, Math.min(100, currentScore + scoreChange));
+            const salesGrowth = Math.max(-30, Math.min(40, scoreChange * 1.2 + (rating - 3.8) * 8));
+            const profitIncrease = Math.round(salesGrowth * 13.5); // Average order value impact
+
+            // Update display
+            document.getElementById('predictedScore').textContent = Math.round(newScore);
+            document.getElementById('scoreChange').textContent = `${scoreChange > 0 ? '+' : ''}${Math.round(scoreChange)} points`;
+            document.getElementById('salesGrowth').textContent = `${salesGrowth > 0 ? '+' : ''}${Math.round(salesGrowth)}%`;
+            document.getElementById('profitIncrease').textContent = `${profitIncrease > 0 ? '+' : ''}$${Math.abs(profitIncrease)}/day`;
+
+            // Update tier
+            let tier = 'Bronze';
+            let benefits = 'Basic';
+            if (newScore >= 80) {
+                tier = 'Gold';
+                benefits = '+Lower Commission';
+            } else if (newScore >= 65) {
+                tier = 'Silver';
+                benefits = '+Ad Credits';
+            }
+
+            document.getElementById('tierChange').textContent = tier;
+            document.getElementById('tierBenefits').textContent = benefits;
+        }
+
+        function selectPlan(planType) {
+            selectedPlan = planType;
+
+            // Remove selection from all cards
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.remove('ring-4', 'ring-snoonu-red', 'dark:ring-snoonu-dark-red');
+            });
+
+            // Add selection to clicked card
+            const selectedCard = document.querySelector(`[data-plan="${planType}"]`);
+            selectedCard.classList.add('ring-4', 'ring-snoonu-red', 'dark:ring-snoonu-dark-red');
+
+            // Enable apply button
+            document.getElementById('applyPlanBtn').disabled = false;
+
+            // Auto-adjust sliders based on plan
+            switch(planType) {
+                case 'profit':
+                    // Focus on rating and moderate improvements
+                    document.getElementById('ratingSlider').value = '4.5';
+                    document.getElementById('stockoutSlider').value = '8';
+                    document.getElementById('prepTimeSlider').value = '20';
+                    document.getElementById('responseSlider').value = '3';
+                    break;
+                case 'score':
+                    // Maximize all improvements
+                    document.getElementById('ratingSlider').value = '4.8';
+                    document.getElementById('stockoutSlider').value = '2';
+                    document.getElementById('prepTimeSlider').value = '35';
+                    document.getElementById('responseSlider').value = '2';
+                    break;
+                case 'balanced':
+                    // Moderate improvements across all areas
+                    document.getElementById('ratingSlider').value = '4.2';
+                    document.getElementById('stockoutSlider').value = '6';
+                    document.getElementById('prepTimeSlider').value = '28';
+                    document.getElementById('responseSlider').value = '4';
+                    break;
+            }
+
+            updateSimulation();
+        }
+
+        function applySelectedPlan() {
+            if (!selectedPlan) return;
+
+            // Generate AI-recommended actions based on plan
+            let actions = [];
+            switch(selectedPlan) {
+                case 'profit':
+                    actions = [
+                        '⭐ Improve customer service (high rating impact)',
+                        '📦 Reduce stockouts by 50%',
+                        '⏱️ Optimize prep times for popular items'
+                    ];
+                    break;
+                case 'score':
+                    actions = [
+                        '⭐ Achieve 4.8+ rating through quality focus',
+                        '📦 Eliminate stockout cancellations',
+                        '⏱️ Set reliable prep times for all orders',
+                        '💬 Implement instant response system'
+                    ];
+                    break;
+                case 'balanced':
+                    actions = [
+                        '⭐ Boost rating to 4.2+ with consistent service',
+                        '📦 Reduce stockouts by 60%',
+                        '⏱️ Balance prep time with reliability',
+                        '💬 Improve response times moderately'
+                    ];
+                    break;
+            }
+
+            alert(`🚀 ${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} Plan Applied!\n\nAI-Recommended Actions:\n${actions.map(action => `• ${action}`).join('\n')}\n\nExpected Results:\n• Score improvement in 3-7 days\n• Revenue impact within 1 week\n• New tier benefits unlocked automatically`);
+
+            closeSimulator();
+        }
+
+        // Campaign generation
+        function generateCampaign() {
+            alert('🎉 Campaign generated!\n\n"🚀 Lunch Rush Special: 20% Off Your Favorites!"\n\nExpected impact: +25% orders during lunch hours\n+15% revenue increase');
+        }
+
+        // Set initial active tab
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.tab-btn').click();
+        });
+    </script>
+</body>
+</html>
