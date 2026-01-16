@@ -1,0 +1,11 @@
+{
+  "name": "snoonu-merchant-os-demo",
+  "version": "1.0.0",
+  "description": "Snoonu MerchantOS Static Demo",
+  "scripts": {
+    "serve": "npx serve . -p 3005",
+    "dev": "npx serve . -p 3005"
+  },
+  "keywords": ["hackathon", "demo", "snoonu", "merchant-os"],
+  "author": "Snoonu Hackathon Team"
+}
