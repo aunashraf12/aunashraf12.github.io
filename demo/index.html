@@ -108,8 +108,8 @@
                         <button onclick="showTab('feedback')" class="tab-btn px-4 py-3 rounded-xl text-sm font-bold transition-all text-white hover:bg-white/20">
                             💬 Feedback
                         </button>
-                        <button onclick="showTab('campaign')" class="tab-btn px-4 py-3 rounded-xl text-sm font-bold transition-all text-white hover:bg-white/20">
-                            🎯 Campaign
+                        <button onclick="showTab('marketing')" class="tab-btn px-4 py-3 rounded-xl text-sm font-bold transition-all text-white hover:bg-white/20">
+                            🚀 Marketing
                         </button>
                         <button onclick="showTab('calculator')" class="tab-btn px-4 py-3 rounded-xl text-sm font-bold transition-all text-white hover:bg-white/20">
                             💰 Calculator
@@ -275,27 +275,158 @@
             </div>
         </div>
 
-        <!-- Campaign Tab -->
-        <div id="campaign" class="tab-content">
+        <!-- Marketing Tab -->
+        <div id="marketing" class="tab-content">
             <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_15px_rgba(220,38,38,0.15)] rounded-xl p-6 theme-transition">
                 <div class="flex items-center mb-6">
-                    <div class="text-2xl mr-3">🎯</div>
+                    <div class="text-2xl mr-3">🚀</div>
                     <div>
-                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Campaign Builder</h3>
-                        <p class="text-snoonu-gray dark:text-gray-400 text-sm">AI-powered campaign creation in one click</p>
+                        <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Marketing & Growth Hub</h3>
+                        <p class="text-snoonu-gray dark:text-gray-400 text-sm">AI-powered strategies to boost your revenue</p>
                     </div>
                 </div>
 
-                <div class="text-center py-8">
-                    <div class="bg-gradient-to-r from-snoonu-red to-red-600 dark:from-snoonu-dark-red dark:to-red-700 text-white rounded-xl p-8 mb-6">
-                        <div class="text-4xl mb-4">🤖</div>
-                        <h4 class="text-xl font-bold mb-2">Smart Campaign Generation</h4>
-                        <p class="text-red-100">Our AI analyzes your sales data and creates the perfect promotional campaign automatically.</p>
+                <!-- Marketing Grid Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- AI Opportunity Feed (Left - 2 columns) -->
+                    <div class="lg:col-span-2">
+                        <div class="mb-6">
+                            <h4 class="text-lg font-bold text-snoonu-black dark:text-snoonu-dark-white mb-2">Recommended Promotions</h4>
+                            <p class="text-snoonu-gray dark:text-gray-400 text-sm mb-4">AI-curated offers to boost your sales right now.</p>
+                        </div>
+
+                        <!-- Opportunity Cards -->
+                        <div class="space-y-4">
+                            <!-- Weather Event Card -->
+                            <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-blue-900/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)] rounded-xl p-5 theme-transition">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <span class="text-3xl mr-3">🌧️</span>
+                                        <div>
+                                            <h5 class="font-bold text-snoonu-black dark:text-white">Rainy Day Comfort</h5>
+                                            <p class="text-sm text-snoonu-gray dark:text-gray-400">Demand for soups is up 40%</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-bold rounded-full">Weather Event</span>
+                                </div>
+                                <p class="text-sm text-snoonu-gray dark:text-gray-400 mb-4">Launch 10% Off comfort foods to capitalize on the weather?</p>
+                                <button class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-4 py-2 rounded-lg font-bold text-sm shadow hover:shadow-md transition-all duration-200">
+                                    Enable for 3h
+                                </button>
+                            </div>
+
+                            <!-- Inventory Card -->
+                            <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-orange-900/50 dark:shadow-[0_0_10px_rgba(249,115,22,0.3)] rounded-xl p-5 theme-transition">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <span class="text-3xl mr-3">📦</span>
+                                        <div>
+                                            <h5 class="font-bold text-snoonu-black dark:text-white">Clear Stock</h5>
+                                            <p class="text-sm text-snoonu-gray dark:text-gray-400">Milk expiring in 2 days</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-300 text-xs font-bold rounded-full">Inventory</span>
+                                </div>
+                                <p class="text-sm text-snoonu-gray dark:text-gray-400 mb-4">Run BOGO offer to prevent waste and boost sales?</p>
+                                <button class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-4 py-2 rounded-lg font-bold text-sm shadow hover:shadow-md transition-all duration-200">
+                                    Launch BOGO
+                                </button>
+                            </div>
+
+                            <!-- Event Card -->
+                            <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 dark:shadow-[0_0_10px_rgba(220,38,38,0.3)] rounded-xl p-5 theme-transition">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <span class="text-3xl mr-3">⚽</span>
+                                        <div>
+                                            <h5 class="font-bold text-snoonu-black dark:text-white">Match Day Special</h5>
+                                            <p class="text-sm text-snoonu-gray dark:text-gray-400">Qatar vs. KSA tonight</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-3 py-1 bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-bold rounded-full">Event</span>
+                                </div>
+                                <p class="text-sm text-snoonu-gray dark:text-gray-400 mb-4">Target football fans with game-day promotions.</p>
+                                <button class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-4 py-2 rounded-lg font-bold text-sm shadow hover:shadow-md transition-all duration-200">
+                                    Boost Visibility
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <button onclick="generateCampaign()" class="bg-snoonu-red dark:bg-snoonu-dark-red hover:bg-snoonu-darkRed dark:hover:bg-snoonu-dark-darkRed text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-lg">
-                        ✨ Create Smart Campaign
-                    </button>
+                    <!-- ROI Tracker (Right - 1 column) -->
+                    <div>
+                        <div class="mb-6">
+                            <h4 class="text-lg font-bold text-snoonu-black dark:text-snoonu-dark-white mb-2">Performance Snapshot</h4>
+                            <p class="text-snoonu-gray dark:text-gray-400 text-sm">See how marketing drives real results.</p>
+                        </div>
+
+                        <!-- ROI Metrics -->
+                        <div class="space-y-6">
+                            <!-- ROAS -->
+                            <div class="text-center">
+                                <div class="relative w-24 h-24 mx-auto mb-3">
+                                    <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" class="text-gray-200 dark:text-gray-700"></circle>
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="62.8" stroke-dashoffset="15.7" class="text-green-500" stroke-linecap="round"></circle>
+                                    </svg>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <span class="text-2xl font-black text-green-600 dark:text-green-400">4.2x</span>
+                                    </div>
+                                </div>
+                                <div class="text-sm font-medium text-snoonu-gray dark:text-gray-400">Return on Ad Spend</div>
+                            </div>
+
+                            <!-- Revenue -->
+                            <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-green-900/50 rounded-xl p-4 text-center">
+                                <div class="text-2xl font-black text-green-600 dark:text-green-400 mb-1">1,250 QAR</div>
+                                <div class="text-sm font-medium text-snoonu-gray dark:text-gray-400">Ad Revenue</div>
+                            </div>
+
+                            <!-- New Customers -->
+                            <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-blue-900/50 rounded-xl p-4 text-center">
+                                <div class="text-2xl font-black text-blue-600 dark:text-blue-400 mb-1">+45</div>
+                                <div class="text-sm font-medium text-snoonu-gray dark:text-gray-400">New Customers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Campaigns (Bottom - Full Width) -->
+                <div class="mt-8">
+                    <h4 class="text-lg font-bold text-snoonu-black dark:text-snoonu-dark-white mb-4">Active Campaigns</h4>
+                    <div class="bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md dark:border-red-900/50 rounded-xl overflow-hidden">
+                        <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-snoonu-black dark:text-white">Free Delivery Friday</span>
+                                <span class="px-3 py-1 bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 text-xs font-bold rounded-full">Active</span>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-snoonu-gray dark:text-gray-400">Lunch Rush 20%</span>
+                                <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 text-xs font-bold rounded-full">Ended</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snoonu Stars Collaboration -->
+                <div class="mt-12">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h4 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white mb-1">🇶🇦 Snoonu Stars Collaboration</h4>
+                            <p class="text-snoonu-gray dark:text-gray-400 text-sm">Promote your brand with Qatar's top voices. Exclusive to Snoonu merchants.</p>
+                        </div>
+                        <div class="px-3 py-1 bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-bold rounded-full">
+                            ❤️ Supported by Qatar's Creative Community
+                        </div>
+                    </div>
+
+                    <!-- Celebrity Cards Container -->
+                    <div id="celebrityContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Celebrity cards will be dynamically rendered here -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -595,7 +726,7 @@
                 minScore: 60,
                 maxScore: 80,
                 color: "silver",
-                benefits: ["Priority Support", "2x Monthly Ad Credits", "Silver Badge"],
+                benefits: ["Priority Support", "2x Monthly Ad Credits", "Silver Badge", "✅ Access to Snoonu Stars (Local Influencers)"],
                 badge: "🥈"
             },
             gold: {
@@ -603,7 +734,7 @@
                 minScore: 80,
                 maxScore: 95,
                 color: "gold",
-                benefits: ["Lower Commission (-2%)", "Dedicated Account Manager", "Gold Badge"],
+                benefits: ["Lower Commission (-2%)", "Dedicated Account Manager", "Gold Badge", "✅ Access to TV Celebrities"],
                 badge: "🥇"
             },
             platinum: {
@@ -611,10 +742,41 @@
                 minScore: 95,
                 maxScore: 100,
                 color: "platinum",
-                benefits: ["0% Commission on Pickups", "VIP Support Line", "Platinum Badge"],
+                benefits: ["0% Commission on Pickups", "VIP Support Line", "Platinum Badge", "✅ Access to National Icons & VIPs"],
                 badge: "💎"
             }
         };
+
+        // Snoonu Stars Celebrity Data
+        const celebrityData = [
+            {
+                name: "Noor The Foodie",
+                reach: "15k Locals",
+                niche: "Hidden Gems",
+                cost: "500 QAR",
+                tier: "Silver",
+                avatar: "👩‍🍳",
+                description: "Local food blogger discovering Qatar's best kept secrets"
+            },
+            {
+                name: "Ahmed Al-Mulla",
+                reach: "85k Followers",
+                niche: "TV Presenter",
+                cost: "1,500 QAR",
+                tier: "Gold",
+                avatar: "👨‍💼",
+                description: "Rising TV personality and Qatar's entertainment voice"
+            },
+            {
+                name: "Khalid (The Singer)",
+                reach: "1.2M Qataris",
+                niche: "National Icon",
+                cost: "Contact Agent",
+                tier: "Platinum",
+                avatar: "🎤",
+                description: "Qatar's beloved singer and national pride ambassador"
+            }
+        ];
 
         // Customer Feedback Data Engine
         const feedbackData = {
@@ -1460,6 +1622,100 @@
             });
         }
 
+        // Render Celebrity Cards
+        function renderCelebrityCards() {
+            const container = document.getElementById('celebrityContainer');
+            const currentTier = 'Bronze'; // This should come from actual merchant tier data
+
+            container.innerHTML = '';
+
+            celebrityData.forEach(celebrity => {
+                const isAccessible = getTierLevel(celebrity.tier) <= getTierLevel(currentTier);
+                const isLocked = !isAccessible;
+                const isBronzeUser = currentTier === 'Bronze';
+
+                let cardClasses = 'bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md rounded-xl p-6 theme-transition ';
+                let contentClasses = '';
+
+                if (isLocked) {
+                    cardClasses += 'opacity-60 relative overflow-hidden';
+                    contentClasses = 'blur-sm';
+                } else {
+                    cardClasses += 'hover:shadow-xl dark:shadow-[0_0_15px_rgba(220,38,38,0.1)]';
+                }
+
+                const html = `
+                    <div class="${cardClasses}" ${isBronzeUser && isLocked ? `onclick="showBronzeAlert()"` : ''}>
+                        ${isLocked ? `<div class="absolute inset-0 bg-black/20 dark:bg-black/40 flex flex-col items-center justify-center z-10">
+                            <span class="text-4xl mb-2">🔒</span>
+                            <span class="text-white text-sm font-bold px-3 py-1 bg-red-600 rounded-full">
+                                ${isBronzeUser ? 'Upgrade to Silver to Unlock' : `Reach ${celebrity.tier}`}
+                            </span>
+                        </div>` : ''}
+
+                        <div class="${contentClasses}">
+                            <div class="text-center mb-4">
+                                <div class="text-6xl mb-3">${celebrity.avatar}</div>
+                                <h5 class="text-lg font-bold text-snoonu-black dark:text-white mb-1">${celebrity.name}</h5>
+                                <p class="text-sm text-snoonu-gray dark:text-gray-400 mb-2">${celebrity.description}</p>
+                            </div>
+
+                            <div class="space-y-2 mb-4">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-snoonu-gray dark:text-gray-400">Reach:</span>
+                                    <span class="font-medium text-snoonu-black dark:text-white">${celebrity.reach}</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-snoonu-gray dark:text-gray-400">Niche:</span>
+                                    <span class="font-medium text-snoonu-black dark:text-white">${celebrity.niche}</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-snoonu-gray dark:text-gray-400">Cost:</span>
+                                    <span class="font-medium text-green-600 dark:text-green-400">${celebrity.cost}</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 bg-${celebrity.tier.toLowerCase() === 'silver' ? 'gray' : celebrity.tier.toLowerCase() === 'gold' ? 'yellow' : 'purple'}-100 dark:bg-${celebrity.tier.toLowerCase() === 'silver' ? 'gray' : celebrity.tier.toLowerCase() === 'gold' ? 'yellow' : 'purple'}-900/50 text-${celebrity.tier.toLowerCase() === 'silver' ? 'gray' : celebrity.tier.toLowerCase() === 'gold' ? 'yellow' : 'purple'}-800 dark:text-${celebrity.tier.toLowerCase() === 'silver' ? 'gray' : celebrity.tier.toLowerCase() === 'gold' ? 'yellow' : 'purple'}-300 text-xs font-bold rounded-full">
+                                    ${celebrity.tier} Tier
+                                </span>
+
+                                ${isAccessible ?
+                                    `<button onclick="bookCelebrity('${celebrity.name}')" class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-4 py-2 rounded-lg font-bold text-sm shadow hover:shadow-md transition-all duration-200">
+                                        Book Now
+                                    </button>` :
+                                    `<span class="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                                        🔒 Reach ${celebrity.tier}
+                                    </span>`
+                                }
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        // Helper function to get tier level for comparison
+        function getTierLevel(tierName) {
+            const tiers = { 'Bronze': 1, 'Silver': 2, 'Gold': 3, 'Platinum': 4 };
+            return tiers[tierName] || 0;
+        }
+
+        // Show Bronze alert function
+        function showBronzeAlert() {
+            alert('🚫 Access Denied! You are 2 points away from Silver. Upgrade now to book Noor!');
+        }
+
+        // Book celebrity function
+        function bookCelebrity(name) {
+            if (name === 'Noor The Foodie') {
+                alert('Request Sent! Noor is happy to support local businesses like yours. Expect a reply in 24h.');
+            } else {
+                alert(`Booking request sent for ${name}! Our team will coordinate the collaboration.`);
+            }
+        }
+
         // Update Feedback Tab
         function updateFeedbackTab(vertical) {
             renderSentimentDashboard(vertical);
@@ -1472,6 +1728,7 @@
             renderTierProgress(); // Initialize tier progress ladder
             renderMetrics('restaurant'); // Initialize metrics
             updateFeedbackTab('restaurant'); // Initialize feedback tab
+            renderCelebrityCards(); // Initialize celebrity cards
         });
     </script>
 </body>
