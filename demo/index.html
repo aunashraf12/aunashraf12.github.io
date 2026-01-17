@@ -1465,21 +1465,21 @@
             let nextTier = null;
             let progressToNext = 0;
 
-            // Determine current tier and next tier
-            for (const [tierKey, tier] of Object.entries(tierData)) {
-                if (currentScore >= tier.minScore && currentScore < tier.maxScore) {
-                    currentTier = { ...tier, key: tierKey };
-                    // Find next tier
-                    const tierKeys = Object.keys(tierData);
-                    const currentIndex = tierKeys.indexOf(tierKey);
-                    if (currentIndex < tierKeys.length - 1) {
-                        nextTier = { ...tierData[tierKeys[currentIndex + 1]], key: tierKeys[currentIndex + 1] };
-                        const progressRange = nextTier.minScore - tier.minScore;
-                        const progressMade = currentScore - tier.minScore;
-                        progressToNext = Math.min(100, (progressMade / progressRange) * 100);
-                    }
-                    break;
-                }
+            // Get current tier using exact boundaries
+            const currentTierKey = getTier(currentScore).toLowerCase();
+            currentTier = { ...tierData[currentTierKey], key: currentTierKey };
+
+            // Find next tier
+            const tierKeys = Object.keys(tierData);
+            const currentIndex = tierKeys.indexOf(currentTierKey);
+            if (currentIndex < tierKeys.length - 1) {
+                const nextTierKey = tierKeys[currentIndex + 1];
+                nextTier = { ...tierData[nextTierKey], key: nextTierKey };
+
+                // Calculate progress to next tier
+                const progressRange = nextTier.minScore - currentTier.minScore;
+                const progressMade = currentScore - currentTier.minScore;
+                progressToNext = Math.min(100, Math.max(0, (progressMade / progressRange) * 100));
             }
 
             // Generate HTML
@@ -1738,15 +1738,15 @@
             document.getElementById('salesGrowth').textContent = `${salesGrowth > 0 ? '+' : ''}${Math.round(salesGrowth)}%`;
             document.getElementById('profitIncrease').textContent = `${profitIncrease > 0 ? '+' : ''}$${Math.abs(profitIncrease)}/day`;
 
-            // Update tier
-            let tier = 'Bronze';
+            // Update tier using exact boundaries
+            const tier = getTier(newScore);
             let benefits = 'Basic';
-            if (newScore >= 80) {
-                tier = 'Gold';
+            if (tier === 'Gold') {
                 benefits = '+Lower Commission';
-            } else if (newScore >= 65) {
-                tier = 'Silver';
+            } else if (tier === 'Silver') {
                 benefits = '+Ad Credits';
+            } else if (tier === 'Platinum') {
+                benefits = '+VIP Support';
             }
 
             document.getElementById('tierChange').textContent = tier;
@@ -2135,6 +2135,26 @@
                 `;
                 container.innerHTML += html;
             });
+        }
+
+        // Function to get tier based on exact score boundaries
+        function getTier(score) {
+            // 0 to 59 = Bronze
+            if (score < 60) {
+                return 'Bronze';
+            }
+            // 60 to 79 = Silver (Must be exactly 60 or higher to unlock)
+            else if (score >= 60 && score < 80) {
+                return 'Silver';
+            }
+            // 80 to 94 = Gold
+            else if (score >= 80 && score < 95) {
+                return 'Gold';
+            }
+            // 95 to 100 = Platinum
+            else if (score >= 95) {
+                return 'Platinum';
+            }
         }
 
         // Helper function to get tier level for comparison
