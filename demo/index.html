@@ -1576,13 +1576,11 @@
         const moonIcon = document.getElementById('moonIcon');
         const html = document.documentElement;
 
-        // Load saved theme
-        const savedTheme = localStorage.getItem('snoonu-theme') || 'light';
-        if (savedTheme === 'dark') {
-            html.classList.add('dark');
-            sunIcon.classList.add('hidden');
-            moonIcon.classList.remove('hidden');
-        }
+        // Force Dark Mode by default
+        const savedTheme = localStorage.getItem('snoonu-theme') || 'dark';
+        html.classList.add('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
 
         themeToggle.addEventListener('click', () => {
             if (html.classList.contains('dark')) {
@@ -1715,9 +1713,10 @@
             const currentScore = 58;
             let scoreChange = 0;
 
-            // Prep time impact (higher prep time = better reliability = higher score)
-            if (prepTime > 25) scoreChange += Math.min(8, (prepTime - 25) * 0.4);
-            else if (prepTime < 15) scoreChange -= (15 - prepTime) * 0.5;
+            // Prep time impact (lower prep time = faster service = higher score)
+            // Using max baseline: 45min max, 5min min, so faster = more points
+            let timePoints = (45 - prepTime) * 1.5; // 5min = 60pts, 45min = 0pts
+            scoreChange += timePoints - 30; // Normalize around 0 (30 is midpoint)
 
             // Stockout impact (lower stockouts = higher score)
             scoreChange += (15 - stockoutRate) * 0.8;
