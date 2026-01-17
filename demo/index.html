@@ -483,99 +483,181 @@
                     </div>
                 </div>
 
-                <!-- District Heatmap -->
-                <div class="mb-6">
-                    <div class="flex items-center mb-6">
-                        <div class="text-2xl mr-3">📍</div>
-                        <div class="flex items-center">
-                            <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white mr-3">Live Zone Activity</h3>
+                <!-- Market Trends & Action Plan -->
+                <div class="mb-8">
+
+                    <!-- Part 1: Market Mood Header -->
+                    <div class="bg-[#0B0F19] border border-white/10 rounded-xl p-6 mb-6 shadow-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="text-2xl mr-3">🎯</div>
                             <div class="flex items-center">
-                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
-                                <span class="text-xs text-green-600 dark:text-green-400 font-medium">LIVE</span>
+                                <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white mr-3">Market Mood</h3>
+                                <div class="flex items-center">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+                                    <span class="text-xs text-green-600 dark:text-green-400 font-medium">LIVE</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-3xl">🔥</div>
+                                <div>
+                                    <div class="text-sm text-gray-400">Dominant Craving</div>
+                                    <div class="text-lg font-bold text-white">Spicy Food</div>
+                                    <div class="text-sm text-green-400 font-medium">↗ 45% vs yesterday</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-3">
+                                <div class="text-3xl">💸</div>
+                                <div>
+                                    <div class="text-sm text-gray-400">Price Sensitivity</div>
+                                    <div class="text-lg font-bold text-white">High</div>
+                                    <div class="text-sm text-red-400 font-medium">Customers seeking deals</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-3">
+                                <div class="text-3xl">🎮</div>
+                                <div>
+                                    <div class="text-sm text-gray-400">Active Demographic</div>
+                                    <div class="text-lg font-bold text-white">Gamers & Students</div>
+                                    <div class="text-sm text-green-400 font-medium">Late night surge</div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- District Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Part 2: Trend Battle -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
-                        <!-- West Bay Card -->
-                        <div class="bg-[#0B0F19] border border-red-500/50 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-                            <div class="flex items-center justify-between mb-3">
-                                <h4 class="text-lg font-bold text-white">West Bay</h4>
-                                <div class="px-2 py-1 bg-red-500/20 border border-red-500/50 rounded-full">
-                                    <span class="text-xs font-bold text-red-400 animate-pulse">🔥 SURGE ACTIVE</span>
-                                </div>
+                        <!-- Rising Trends -->
+                        <div class="bg-[#0B0F19] border border-white/10 rounded-xl p-6 shadow-xl">
+                            <div class="flex items-center mb-4">
+                                <div class="text-xl mr-2">🚀</div>
+                                <h4 class="text-lg font-bold text-white">Rising</h4>
                             </div>
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm text-gray-400">Orders/hr:</span>
-                                    <span class="text-lg font-bold text-white">142 <span class="text-green-400 text-sm">↗ 40%</span></span>
+
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-white font-medium">Chicken Wraps</span>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-16 h-2 bg-white/20 rounded-full">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 22%"></div>
+                                        </div>
+                                        <span class="text-green-400 text-sm font-bold">+22%</span>
+                                    </div>
                                 </div>
-                                <div class="text-xs text-gray-500 bg-red-500/10 border border-red-500/20 rounded px-2 py-1">
-                                    Office lunch rush detected
+
+                                <div class="flex items-center justify-between">
+                                    <span class="text-white font-medium">Iced Coffee</span>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-16 h-2 bg-white/20 rounded-full">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 15%"></div>
+                                        </div>
+                                        <span class="text-green-400 text-sm font-bold">+15%</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between">
+                                    <span class="text-white font-medium">Family Bundles</span>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-16 h-2 bg-white/20 rounded-full">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 8%"></div>
+                                        </div>
+                                        <span class="text-green-400 text-sm font-bold">+8%</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- The Pearl Card -->
-                        <div class="bg-[#0B0F19] border border-blue-500/50 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-                            <div class="flex items-center justify-between mb-3">
-                                <h4 class="text-lg font-bold text-white">The Pearl</h4>
-                                <div class="px-2 py-1 bg-blue-500/20 border border-blue-500/50 rounded-full">
-                                    <span class="text-xs font-bold text-blue-400">🌊 HIGH TRAFFIC</span>
-                                </div>
+                        <!-- Falling Trends -->
+                        <div class="bg-[#0B0F19] border border-white/10 rounded-xl p-6 shadow-xl">
+                            <div class="flex items-center mb-4">
+                                <div class="text-xl mr-2">📉</div>
+                                <h4 class="text-lg font-bold text-white">Falling</h4>
                             </div>
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm text-gray-400">Orders/hr:</span>
-                                    <span class="text-lg font-bold text-white">89 <span class="text-gray-400 text-sm">→ Stable</span></span>
-                                </div>
-                                <div class="text-xs text-gray-500 bg-blue-500/10 border border-blue-500/20 rounded px-2 py-1">
-                                    Dinner pre-orders rising
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Lusail City Card -->
-                        <div class="bg-[#0B0F19] border border-purple-500/50 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-                            <div class="flex items-center justify-between mb-3">
-                                <h4 class="text-lg font-bold text-white">Lusail City</h4>
-                                <div class="px-2 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full">
-                                    <span class="text-xs font-bold text-purple-400">🚀 GROWING</span>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-white font-medium">Hot Soup</span>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-16 h-2 bg-white/20 rounded-full">
+                                            <div class="h-full bg-red-500 rounded-full" style="width: 12%"></div>
+                                        </div>
+                                        <span class="text-red-400 text-sm font-bold">-12%</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm text-gray-400">Orders/hr:</span>
-                                    <span class="text-lg font-bold text-white">56 <span class="text-green-400 text-sm">↗ 15%</span></span>
-                                </div>
-                                <div class="text-xs text-gray-500 bg-purple-500/10 border border-purple-500/20 rounded px-2 py-1">
-                                    New residential development
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Al Rayyan Card -->
-                        <div class="bg-[#0B0F19] border border-green-500/50 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-                            <div class="flex items-center justify-between mb-3">
-                                <h4 class="text-lg font-bold text-white">Al Rayyan</h4>
-                                <div class="px-2 py-1 bg-green-500/20 border border-green-500/50 rounded-full">
-                                    <span class="text-xs font-bold text-green-400">✅ STABLE</span>
-                                </div>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm text-gray-400">Orders/hr:</span>
-                                    <span class="text-lg font-bold text-white">34 <span class="text-gray-400 text-sm">→ Steady</span></span>
-                                </div>
-                                <div class="text-xs text-gray-500 bg-green-500/10 border border-green-500/20 rounded px-2 py-1">
-                                    Consistent local demand
+                                <div class="flex items-center justify-between">
+                                    <span class="text-white font-medium">Salads</span>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-16 h-2 bg-white/20 rounded-full">
+                                            <div class="h-full bg-red-500 rounded-full" style="width: 5%"></div>
+                                        </div>
+                                        <span class="text-red-400 text-sm font-bold">-5%</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
+
+                    <!-- Part 3: Strategic Action Cards -->
+                    <div class="mb-6">
+                        <div class="flex items-center mb-4">
+                            <div class="text-2xl mr-3">⚡</div>
+                            <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Recommended Actions</h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                            <!-- Action 1: Spicy Add-on -->
+                            <div class="bg-[#0B0F19] border border-red-500/30 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="text-lg font-bold text-white">Launch 'Firecracker' Add-on</h5>
+                                    <div class="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center">
+                                        <span class="text-red-400 text-sm">🔥</span>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-4">Spicy searches are up. Add a 'Spicy Sauce' option to your burgers for +2 QAR.</p>
+                                <button class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                                    Enable One-Click
+                                </button>
+                            </div>
+
+                            <!-- Action 2: Duo Combo -->
+                            <div class="bg-[#0B0F19] border border-green-500/30 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="text-lg font-bold text-white">Activate 'Duo Combo'</h5>
+                                    <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                                        <span class="text-green-400 text-sm">💰</span>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-4">Customers are skipping single items. Bundle 2 burgers + fries to increase conversion.</p>
+                                <button class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                                    Create Bundle
+                                </button>
+                            </div>
+
+                            <!-- Action 3: Extend Hours -->
+                            <div class="bg-[#0B0F19] border border-blue-500/30 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="text-lg font-bold text-white">Extend Hours to 2 AM</h5>
+                                    <div class="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
+                                        <span class="text-blue-400 text-sm">⏰</span>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-4">Late night demand is peaking. Stay open 1 extra hour to capture 50+ orders.</p>
+                                <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                                    Update Hours
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
