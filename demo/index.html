@@ -6,6 +6,7 @@
     <title>Snoonu MerchantOS - Hackathon Demo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -61,6 +62,17 @@
             animation: marquee 20s linear infinite;
         }
 
+        /* Radar Scanning Animation */
+        @keyframes scan {
+            0% { left: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+        .animate-scan {
+            animation: scan 4s linear infinite;
+        }
+
         /* Force Dark Mode on Dropdown Options */
         .dark option {
             background-color: #1a0505; /* Dark Red/Black */
@@ -72,7 +84,7 @@
     <!-- Dark Mode Background Wrapper -->
     <div class="min-h-screen dark:bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] dark:from-[#4a0404] dark:via-[#1a0505] dark:to-black">
         <!-- Header -->
-    <header class="bg-snoonu-red text-white shadow-lg">
+    <header class="bg-[#ED1C24] text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 py-6">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-4">
@@ -99,7 +111,7 @@
                             <option value="restaurant">🍔 Restaurant</option>
                             <option value="mart">🛒 Grocery/Mart</option>
                             <option value="laundry">👔 Laundry</option>
-                            <option value="pharmacy">💊 Pharmacy</option>
+                            <option value="market">🛒 Market</option>
                         </select>
                         <!-- Custom Arrow Icon -->
                         <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
@@ -154,7 +166,7 @@
                         <div class="relative z-10">
                             <div class="flex items-center justify-between mb-6">
                                 <div class="flex items-center space-x-4">
-                                    <div class="text-4xl bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-full p-3">🍔</div>
+                                    <div id="big-merchant-logo" class="text-4xl bg-snoonu-lightRed dark:bg-snoonu-dark-lightRed rounded-full p-3">🍔</div>
                                     <div>
                                         <h2 id="merchantName" class="text-2xl font-bold text-snoonu-black dark:text-snoonu-dark-white">Burger House</h2>
                                         <p class="text-snoonu-gray dark:text-gray-400 capitalize flex items-center">
@@ -471,43 +483,130 @@
                     </div>
                 </div>
 
-                <!-- Map Container -->
-                <div class="relative bg-gray-900 rounded-lg overflow-hidden" style="height: 300px;">
-                    <!-- Simplified Doha Map Representation -->
-                    <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900">
-                        <!-- West Bay Hotspot -->
-                        <div class="absolute top-1/4 left-1/4 w-16 h-16 bg-red-500/30 rounded-full animate-pulse" data-zone="west-bay" onmouseover="showZoneInfo('West Bay', 'Burgers (+40%)', '65 QAR')" onmouseout="hideZoneInfo()">
-                            <div class="absolute inset-2 bg-red-400/50 rounded-full"></div>
-                        </div>
-                        <!-- City Center Hotspot -->
-                        <div class="absolute top-1/3 right-1/4 w-12 h-12 bg-blue-500/30 rounded-full animate-pulse" data-zone="city-center" onmouseover="showZoneInfo('City Center', 'Pizza (+25%)', '45 QAR')" onmouseout="hideZoneInfo()">
-                            <div class="absolute inset-2 bg-blue-400/50 rounded-full"></div>
-                        </div>
-                        <!-- Airport Area Hotspot -->
-                        <div class="absolute bottom-1/4 right-1/3 w-14 h-14 bg-green-500/30 rounded-full animate-pulse" data-zone="airport" onmouseover="showZoneInfo('Airport Area', 'Sandwiches (+30%)', '55 QAR')" onmouseout="hideZoneInfo()">
-                            <div class="absolute inset-2 bg-green-400/50 rounded-full"></div>
-                        </div>
-                    </div>
-
-                    <!-- Zone Info Overlay -->
-                    <div id="zoneInfo" class="absolute top-2 left-2 bg-black/80 text-white p-3 rounded-lg opacity-0 transition-opacity">
-                        <div class="text-sm font-bold" id="zoneName">West Bay</div>
-                        <div class="text-xs" id="zoneDemand">Burgers (+40%)</div>
-                        <div class="text-xs" id="zoneValue">Avg Order: 65 QAR</div>
-                    </div>
-
-                    <!-- Legend -->
-                    <div class="absolute bottom-2 right-2 bg-black/60 text-white p-2 rounded text-xs">
-                        <div class="flex items-center mb-1">
-                            <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-                            <span>High Demand</span>
-                        </div>
+                <!-- District Heatmap -->
+                <div class="mb-6">
+                    <div class="flex items-center mb-6">
+                        <div class="text-2xl mr-3">📍</div>
                         <div class="flex items-center">
-                            <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-                            <span>Medium Demand</span>
+                            <h3 class="text-xl font-bold text-snoonu-black dark:text-snoonu-dark-white mr-3">Live Zone Activity</h3>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+                                <span class="text-xs text-green-600 dark:text-green-400 font-medium">LIVE</span>
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- District Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                        <!-- West Bay Card -->
+                        <div class="bg-[#0B0F19] border border-red-500/50 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="text-lg font-bold text-white">West Bay</h4>
+                                <div class="px-2 py-1 bg-red-500/20 border border-red-500/50 rounded-full">
+                                    <span class="text-xs font-bold text-red-400 animate-pulse">🔥 SURGE ACTIVE</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-400">Orders/hr:</span>
+                                    <span class="text-lg font-bold text-white">142 <span class="text-green-400 text-sm">↗ 40%</span></span>
+                                </div>
+                                <div class="text-xs text-gray-500 bg-red-500/10 border border-red-500/20 rounded px-2 py-1">
+                                    Office lunch rush detected
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- The Pearl Card -->
+                        <div class="bg-[#0B0F19] border border-blue-500/50 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="text-lg font-bold text-white">The Pearl</h4>
+                                <div class="px-2 py-1 bg-blue-500/20 border border-blue-500/50 rounded-full">
+                                    <span class="text-xs font-bold text-blue-400">🌊 HIGH TRAFFIC</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-400">Orders/hr:</span>
+                                    <span class="text-lg font-bold text-white">89 <span class="text-gray-400 text-sm">→ Stable</span></span>
+                                </div>
+                                <div class="text-xs text-gray-500 bg-blue-500/10 border border-blue-500/20 rounded px-2 py-1">
+                                    Dinner pre-orders rising
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lusail City Card -->
+                        <div class="bg-[#0B0F19] border border-purple-500/50 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="text-lg font-bold text-white">Lusail City</h4>
+                                <div class="px-2 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full">
+                                    <span class="text-xs font-bold text-purple-400">🚀 GROWING</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-400">Orders/hr:</span>
+                                    <span class="text-lg font-bold text-white">56 <span class="text-green-400 text-sm">↗ 15%</span></span>
+                                </div>
+                                <div class="text-xs text-gray-500 bg-purple-500/10 border border-purple-500/20 rounded px-2 py-1">
+                                    New residential development
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Al Rayyan Card -->
+                        <div class="bg-[#0B0F19] border border-green-500/50 rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="text-lg font-bold text-white">Al Rayyan</h4>
+                                <div class="px-2 py-1 bg-green-500/20 border border-green-500/50 rounded-full">
+                                    <span class="text-xs font-bold text-green-400">✅ STABLE</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-400">Orders/hr:</span>
+                                    <span class="text-lg font-bold text-white">34 <span class="text-gray-400 text-sm">→ Steady</span></span>
+                                </div>
+                                <div class="text-xs text-gray-500 bg-green-500/10 border border-green-500/20 rounded px-2 py-1">
+                                    Consistent local demand
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+
+                <div class="bg-[#0B0F19] border border-white/10 rounded-xl p-6 shadow-xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Sales Velocity</h3>
+                            <p class="text-xs text-gray-400">Revenue growth over last 7 days</p>
+                        </div>
+                        <div class="text-green-500 font-mono font-bold">+12.4% ↗</div>
+                    </div>
+                    <div class="relative h-64 w-full">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-[#0B0F19] border border-white/10 rounded-xl p-6 shadow-xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Product Performance</h3>
+                            <p class="text-xs text-gray-400">Top selling items by volume</p>
+                        </div>
+                        <button class="text-xs bg-white/5 hover:bg-white/10 text-white px-3 py-1 rounded transition">View Report</button>
+                    </div>
+                    <div class="relative h-64 w-full">
+                        <canvas id="productsChart"></canvas>
+                    </div>
+                </div>
+
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
@@ -884,7 +983,7 @@
                 minScore: 60,
                 maxScore: 80,
                 color: "silver",
-                benefits: ["Priority Support", "2x Monthly Ad Credits", "Silver Badge", "✅ Access to Snoonu Stars (Local Influencers)"],
+                benefits: ["Priority Support", "2x Monthly Ad Credits", "Silver Badge"],
                 badge: "🥈"
             },
             gold: {
@@ -892,7 +991,7 @@
                 minScore: 80,
                 maxScore: 95,
                 color: "gold",
-                benefits: ["Lower Commission (-2%)", "Dedicated Account Manager", "Gold Badge", "✅ Access to TV Celebrities"],
+                benefits: ["Lower Commission (-2%)", "Dedicated Account Manager", "Gold Badge", "✅ Access to Snoonu Stars (Paid Collaboration)"],
                 badge: "🥇"
             },
             platinum: {
@@ -900,7 +999,7 @@
                 minScore: 95,
                 maxScore: 100,
                 color: "platinum",
-                benefits: ["0% Commission on Pickups", "VIP Support Line", "Platinum Badge", "✅ Access to National Icons & VIPs"],
+                benefits: ["0% Commission on Pickups", "VIP Support Line", "Platinum Badge", "💎 Free Celebrity Ads"],
                 badge: "💎"
             }
         };
@@ -912,7 +1011,6 @@
                 reach: "15k Locals",
                 niche: "Hidden Gems",
                 cost: "500 QAR",
-                tier: "Silver",
                 avatar: "👩‍🍳",
                 description: "Local food blogger discovering Qatar's best kept secrets"
             },
@@ -921,7 +1019,6 @@
                 reach: "85k Followers",
                 niche: "TV Presenter",
                 cost: "1,500 QAR",
-                tier: "Gold",
                 avatar: "👨‍💼",
                 description: "Rising TV personality and Qatar's entertainment voice"
             },
@@ -930,7 +1027,6 @@
                 reach: "1.2M Qataris",
                 niche: "National Icon",
                 cost: "Contact Agent",
-                tier: "Platinum",
                 avatar: "🎤",
                 description: "Qatar's beloved singer and national pride ambassador"
             }
@@ -987,20 +1083,20 @@
                     { name: "Salem K.", rating: 5, comment: "Exceptional dry cleaning service. Highly recommend!", tag: "Quality", time: "1d ago", sentiment: "positive" }
                 ]
             },
-            pharmacy: {
+            market: {
                 sentiment: {
-                    score: 4.8,
+                    score: 4.6,
                     trend: "up",
-                    trendValue: 0.1,
-                    insight: "💊 Excellent prescription accuracy - 'Fast Service' driving customer loyalty."
+                    trendValue: 0.2,
+                    insight: "🛒 Strong performance in fresh produce - 'Quality Assurance' driving customer satisfaction."
                 },
                 reviews: [
-                    { name: "Noor F.", rating: 5, comment: "Always accurate prescriptions and friendly staff!", tag: "Service", time: "1h ago", sentiment: "positive" },
-                    { name: "Abdullah R.", rating: 5, comment: "Quick service during flu season. Much appreciated!", tag: "Speed", time: "2h ago", sentiment: "positive" },
-                    { name: "Maya S.", rating: 4, comment: "Good selection but had to wait 15 minutes.", tag: "Wait Time", time: "4h ago", sentiment: "neutral" },
-                    { name: "Tariq M.", rating: 5, comment: "Professional service and all medications ready on time.", tag: "Quality", time: "6h ago", sentiment: "positive" },
-                    { name: "Dana H.", rating: 3, comment: "Couldn't find the cough syrup I needed.", tag: "Missing Item", time: "8h ago", sentiment: "negative" },
-                    { name: "Faisal A.", rating: 5, comment: "Best pharmacy in the area. Always helpful staff.", tag: "Service", time: "1d ago", sentiment: "positive" }
+                    { name: "Sara L.", rating: 5, comment: "Always fresh fruits and vegetables! Love this supermarket.", tag: "Quality", time: "1h ago", sentiment: "positive" },
+                    { name: "Ahmed K.", rating: 4, comment: "Good selection but the checkout lines can be long during peak hours.", tag: "Wait Time", time: "3h ago", sentiment: "neutral" },
+                    { name: "Fatima M.", rating: 5, comment: "Excellent meat quality and friendly butchers. Highly recommend!", tag: "Service", time: "5h ago", sentiment: "positive" },
+                    { name: "Mohammed R.", rating: 3, comment: "Couldn't find organic milk. More organic options needed.", tag: "Missing Item", time: "7h ago", sentiment: "negative" },
+                    { name: "Layla S.", rating: 5, comment: "Clean store and helpful staff. Always a great shopping experience!", tag: "Service", time: "1d ago", sentiment: "positive" },
+                    { name: "Omar T.", rating: 4, comment: "Good prices but parking can be challenging.", tag: "Service", time: "1d ago", sentiment: "neutral" }
                 ]
             }
         };
@@ -1010,6 +1106,7 @@
             restaurant: {
                 name: "Burger House",
                 icon: "🍔",
+                logo: "🍔",
                 category: "restaurants",
                 edition: "RESTAURANT EDITION",
                 timeMetricLabel: "Prep Time",
@@ -1054,6 +1151,7 @@
             mart: {
                 name: "Al Madina Mart",
                 icon: "🛒",
+                logo: "🛒",
                 category: "grocery stores",
                 edition: "MART EDITION",
                 timeMetricLabel: "Picking Time",
@@ -1098,6 +1196,7 @@
             laundry: {
                 name: "Fresh Clean Laundry",
                 icon: "👔",
+                logo: "👔",
                 category: "laundry services",
                 edition: "LAUNDRY EDITION",
                 timeMetricLabel: "Turnaround Time",
@@ -1133,41 +1232,48 @@
                     }
                 ]
             },
-            pharmacy: {
-                name: "HealthCare Pharmacy",
-                icon: "💊",
-                category: "pharmacies",
-                edition: "PHARMACY EDITION",
-                timeMetricLabel: "Verification Time",
-                loadMetricLabel: "Prescription Load",
-                aiAction: "🏥 Fast-track prescription verification for flu medications",
-                aiActionDesc: "Flu season demand spike - prioritize urgent prescriptions",
-                tickerMessage: "Flu season demand spike - stock up on medications",
+            market: {
+                name: "Al Meera Supermarket",
+                icon: "🛒",
+                logo: "🛒",
+                category: "grocery stores",
+                edition: "MARKET EDITION",
+                timeMetricLabel: "Processing Time",
+                loadMetricLabel: "Store Traffic",
+                aiAction: "📦 Mark 'Al Marai Milk' Low Stock (predicted run-out in 1 hour)",
+                aiActionDesc: "Critical dairy item running low - reorder needed immediately",
+                tickerMessage: "High demand for 'Dairy' in West Bay - stock up!",
                 simulatorMetrics: {
-                    timeMetric: "Verification Speed",
-                    stockoutMetric: "Medication Stockout",
+                    timeMetric: "Processing Speed",
+                    stockoutMetric: "Stockout Rate",
                     responseMetric: "Response Time",
                     ratingMetric: "Customer Rating"
                 },
                 metrics: [
-                    { label: "Availability", value: "95%", trend: "up", color: "green" },
-                    { label: "Reliability", value: "92%", trend: "up", color: "green" },
-                    { label: "Conversion", value: "42%", trend: "up", subtext: "+8%", color: "green" },
-                    { label: "Wait Time", value: "8m", trend: "down", subtext: "Avg", color: "red" },
-                    { label: "Sentiment", value: "4.8★", trend: "up", subtext: "Top 1%", color: "green" }
+                    { label: "Availability", value: "98%", trend: "stable", color: "gray" },
+                    { label: "Reliability", value: "99%", trend: "up", color: "green" },
+                    { label: "Conversion", value: "35%", trend: "up", subtext: "+5%", color: "green" },
+                    { label: "Pick Rate", value: "2 min/item", trend: "up", subtext: "Items/min", color: "green" },
+                    { label: "Sentiment", value: "4.5★", trend: "up", subtext: "Top 10%", color: "green" }
                 ],
                 tasks: [
                     {
-                        title: "Verify Prescription #882 (Pending > 10m)",
-                        points: 15,
+                        title: "Mark 'Al Marai Milk' Low Stock (Predicted run-out: 1h)",
+                        points: 8,
                         type: "urgent",
-                        icon: "🏥"
+                        icon: "🥛"
                     },
                     {
-                        title: "Restock 'Panadol Advance' (High Demand)",
+                        title: "Approve substitute for 'Organic Eggs' (Out of Stock)",
+                        points: 3,
+                        type: "quick",
+                        icon: "🥚"
+                    },
+                    {
+                        title: "Update price for 'Imported Bananas' (+10%)",
                         points: 5,
                         type: "routine",
-                        icon: "💊"
+                        icon: "🍌"
                     }
                 ]
             }
@@ -1326,6 +1432,10 @@
 
             // Update merchant information
             document.getElementById('merchantName').textContent = config.name;
+            const bigLogo = document.getElementById('big-merchant-logo');
+            if (bigLogo) {
+                bigLogo.textContent = config.logo;
+            }
             document.getElementById('merchantIcon').textContent = config.icon;
             document.getElementById('merchantCategory').textContent = config.category;
             document.getElementById('editionLabel').textContent = config.edition;
@@ -1783,9 +1893,9 @@
             container.innerHTML = '';
 
             celebrityData.forEach(celebrity => {
-                const isAccessible = getTierLevel(celebrity.tier) <= getTierLevel(currentTier);
-                const isLocked = !isAccessible;
-                const isBronzeUser = currentTier === 'Bronze';
+                const isGoldOrPlatinum = getTierLevel(currentTier) >= getTierLevel('Gold');
+                const isPlatinum = getTierLevel(currentTier) >= getTierLevel('Platinum');
+                const isLocked = !isGoldOrPlatinum;
 
                 let cardClasses = 'bg-white shadow-lg border border-gray-200 dark:bg-black/50 dark:backdrop-blur-md rounded-xl p-6 theme-transition ';
                 let contentClasses = '';
@@ -1793,16 +1903,18 @@
                 if (isLocked) {
                     cardClasses += 'opacity-60 relative overflow-hidden';
                     contentClasses = 'blur-sm';
+                } else if (isPlatinum) {
+                    cardClasses += 'hover:shadow-xl dark:shadow-[0_0_20px_rgba(168,85,247,0.3)] border-purple-300 dark:border-purple-600';
                 } else {
                     cardClasses += 'hover:shadow-xl dark:shadow-[0_0_15px_rgba(220,38,38,0.1)]';
                 }
 
                 const html = `
-                    <div class="${cardClasses}" ${isBronzeUser && isLocked ? `onclick="showBronzeAlert()"` : ''}>
+                    <div class="${cardClasses}" ${isLocked ? `onclick="showUpgradeAlert()"` : ''}>
                         ${isLocked ? `<div class="absolute inset-0 bg-black/20 dark:bg-black/40 flex flex-col items-center justify-center z-10">
                             <span class="text-4xl mb-2">🔒</span>
                             <span class="text-white text-sm font-bold px-3 py-1 bg-red-600 rounded-full">
-                                ${isBronzeUser ? 'Upgrade to Silver to Unlock' : `Reach ${celebrity.tier}`}
+                                Upgrade to Gold to Unlock Celebrity Ads
                             </span>
                         </div>` : ''}
 
@@ -1823,22 +1935,22 @@
                                     <span class="font-medium text-snoonu-black dark:text-white">${celebrity.niche}</span>
                                 </div>
                                 <div class="flex justify-between text-sm">
-                                    <span class="text-snoonu-gray dark:text-gray-400">Cost:</span>
-                                    <span class="font-medium text-green-600 dark:text-green-400">${celebrity.cost}</span>
+                                    <span class="text-snoonu-gray dark:text-gray-400">Investment:</span>
+                                    <span class="font-medium ${isPlatinum ? 'line-through text-gray-500 dark:text-gray-600' : 'text-green-600 dark:text-green-400'}">${isPlatinum ? celebrity.cost : celebrity.cost}</span>
                                 </div>
                             </div>
 
                             <div class="flex items-center justify-between">
-                                <span class="px-3 py-1 bg-${celebrity.tier.toLowerCase() === 'silver' ? 'gray' : celebrity.tier.toLowerCase() === 'gold' ? 'yellow' : 'purple'}-100 dark:bg-${celebrity.tier.toLowerCase() === 'silver' ? 'gray' : celebrity.tier.toLowerCase() === 'gold' ? 'yellow' : 'purple'}-900/50 text-${celebrity.tier.toLowerCase() === 'silver' ? 'gray' : celebrity.tier.toLowerCase() === 'gold' ? 'yellow' : 'purple'}-800 dark:text-${celebrity.tier.toLowerCase() === 'silver' ? 'gray' : celebrity.tier.toLowerCase() === 'gold' ? 'yellow' : 'purple'}-300 text-xs font-bold rounded-full">
-                                    ${celebrity.tier} Tier
+                                <span class="px-3 py-1 bg-gradient-to-r from-yellow-400 to-yellow-600 text-yellow-900 text-xs font-bold rounded-full shadow-sm">
+                                    Celebrity Partner
                                 </span>
 
-                                ${isAccessible ?
-                                    `<button onclick="bookCelebrity('${celebrity.name}')" class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-4 py-2 rounded-lg font-bold text-sm shadow hover:shadow-md transition-all duration-200">
-                                        Book Now
+                                ${!isLocked ?
+                                    `<button onclick="bookCelebrity('${celebrity.name}', '${currentTier}')" class="bg-snoonu-red hover:bg-snoonu-darkRed text-white px-4 py-2 rounded-lg font-bold text-sm shadow hover:shadow-md transition-all duration-200 ${isPlatinum ? 'bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800' : ''}">
+                                        ${isPlatinum ? 'Book for FREE (VIP Reward)' : `Book for ${celebrity.cost}`}
                                     </button>` :
                                     `<span class="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                                        🔒 Reach ${celebrity.tier}
+                                        🔒 Requires Gold Tier
                                     </span>`
                                 }
                             </div>
@@ -1855,34 +1967,18 @@
             return tiers[tierName] || 0;
         }
 
-        // Show Bronze alert function
-        function showBronzeAlert() {
-            alert('🚫 Access Denied! You are 2 points away from Silver. Upgrade now to book Noor!');
+        // Show upgrade alert function
+        function showUpgradeAlert() {
+            alert('🚫 Access Denied! Upgrade to Gold Tier to unlock celebrity advertising partnerships.');
         }
 
         // Book celebrity function
-        function bookCelebrity(name) {
-            if (name === 'Noor The Foodie') {
-                alert('Request Sent! Noor is happy to support local businesses like yours. Expect a reply in 24h.');
+        function bookCelebrity(name, tier) {
+            if (tier === 'Platinum') {
+                alert('VIP Request Sent! This collaboration is on us. 💎 Expect a response within 24 hours.');
             } else {
-                alert(`Booking request sent for ${name}! Our team will coordinate the collaboration.`);
+                alert(`Payment Gateway: Charge ${name === 'Noor The Foodie' ? '500' : name === 'Ahmed Al-Mulla' ? '1,500' : 'Contact Agent'} QAR to your account? [This will initiate the celebrity partnership]`);
             }
-        }
-
-        // Market Map Interactions
-        function showZoneInfo(name, demand, value) {
-            const zoneInfo = document.getElementById('zoneInfo');
-            document.getElementById('zoneName').textContent = name;
-            document.getElementById('zoneDemand').textContent = demand;
-            document.getElementById('zoneValue').textContent = 'Avg Order: ' + value;
-            zoneInfo.classList.remove('opacity-0');
-            zoneInfo.classList.add('opacity-100');
-        }
-
-        function hideZoneInfo() {
-            const zoneInfo = document.getElementById('zoneInfo');
-            zoneInfo.classList.remove('opacity-100');
-            zoneInfo.classList.add('opacity-0');
         }
 
         // Tier Gating for Analytics Features
@@ -1927,6 +2023,98 @@
             updateFeedbackTab('restaurant'); // Initialize feedback tab
             renderCelebrityCards(); // Initialize celebrity cards
             updateAnalyticsTierAccess(); // Initialize analytics tier access
+
+            // Initialize Charts
+            // --- Chart 1: Sales Growth (Gradient Line) ---
+            const ctxSales = document.getElementById('salesChart').getContext('2d');
+
+            // Create a Red Gradient for the line
+            const gradientSales = ctxSales.createLinearGradient(0, 0, 0, 400);
+            gradientSales.addColorStop(0, 'rgba(239, 68, 68, 0.5)'); // Red top
+            gradientSales.addColorStop(1, 'rgba(239, 68, 68, 0)');   // Transparent bottom
+
+            new Chart(ctxSales, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Revenue (QAR)',
+                        data: [1200, 1900, 1500, 2200, 2800, 3100, 3800], // The "Growth" Curve
+                        borderColor: '#ef4444', // Snoonu Red
+                        backgroundColor: gradientSales,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#ef4444',
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: true,
+                        tension: 0.4 // Makes the line smooth (curved)
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#ccc',
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#6b7280' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#6b7280' }
+                        }
+                    }
+                }
+            });
+
+            // --- Chart 2: Top Products (Bar Chart) ---
+            const ctxProducts = document.getElementById('productsChart').getContext('2d');
+
+            new Chart(ctxProducts, {
+                type: 'bar',
+                data: {
+                    labels: ['Spicy Burger', 'Cheese Fries', 'Cola Zero', 'Chicken Wrap'],
+                    datasets: [{
+                        label: 'Units Sold',
+                        data: [145, 98, 85, 62], // The Data
+                        backgroundColor: [
+                            '#ef4444', // Red (Top Seller)
+                            '#f87171', // Light Red
+                            '#fca5a5', // Lighter Red
+                            '#374151'  // Gray (The Rest)
+                        ],
+                        borderRadius: 6,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#6b7280' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af', font: { weight: 'bold' } }
+                        }
+                    }
+                }
+            });
         });
     </script>
 </body>
