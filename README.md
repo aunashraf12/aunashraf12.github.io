@@ -1,18 +1,37 @@
-# Snoonu MerchantOS - Hackathon Demo
+# Snoonu Merchant Intelligence Platform (MerchantOS)
 
-## ⚡ **WORKING DEMO READY!**
+Hackathon prototype for **Snoonu Hackathon 2026 – Case 3: Merchant & Collaborator Experience**.
 
-🎉 **Open `demo/index.html` in your browser to see the full interactive demo!**
-
-### **Features Included:**
-- ✅ **Dark Mode Toggle** (sun/moon icon in header)
-- ✅ **4 Interactive Tabs** (Dashboard, Feedback, Campaign, Calculator)
-- ✅ **What-If Simulator** (predictive analytics modal)
-- ✅ **Customer Feedback AI** (complaint processing)
-- ✅ **Campaign Builder** (one-click AI campaigns)
-- ✅ **Profit Calculator** (discount impact analysis)
-- ✅ **Restaurant-Focused UI** with Snoonu branding
+MerchantOS upgrades the Snoonu merchant portal from “stats + notifications” into an **intelligent growth workspace** that helps merchants:
+- understand what is hurting performance,
+- get prioritized actions to fix it,
+- simulate improvements before committing,
+- and adopt campaigns/discounting with profit awareness.
 
 ---
 
-# Snoonu MerchantOS - Full Implementation
+## What’s inside this repo
+
+This repo includes **two runnable versions**:
+
+1) **Static Demo (recommended for judging)**
+- Path: `./demo/index.html`
+- Works instantly in a browser (no build required).
+
+2) **Next.js Prototype (component-based)**
+- Path: `./src`
+- Built with Next.js + TypeScript + Tailwind.
+- Uses mock/demo data by default (no backend required).
+
+---
+
+## Quick start (Static Demo)
+
+### Option A: Open directly
+- Open `demo/index.html` in any modern browser.
+
+### Option B: Serve locally (recommended)
+From the repo root:
+```bash
+cd demo
+node server.js
